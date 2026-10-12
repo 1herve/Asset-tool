@@ -35,14 +35,15 @@ class AuditTests(unittest.TestCase):
         return result,anomalies,normalized
     def test_98_catalogue_coverage(self):
         self.assertEqual([f['id'] for f in self.cfg['fields']],[f'V{i:03}' for i in range(1,99)])
-        with Path('docs/couverture_variables.csv').open() as stream:
-            rows=list(csv.DictReader(stream))
+        with Path('docs/couverture_variables.csv').open(encoding='utf-8-sig') as stream:
+            rows=list(csv.DictReader(stream,delimiter=';'))
         self.assertEqual([r['variable'] for r in rows],[f['name'] for f in self.cfg['fields']])
         result,alerts,norm=self.run_audit([valid_row(self.cfg)])
         self.assertEqual(result['checked_cells'],98);self.assertEqual(result['anomalies'],0)
         self.assertEqual(result['status'],'A_COMPLETER')
         self.assertEqual(len(norm[0]),99)
-        self.assertEqual(result['pending_parameters'],284)
+        self.assertEqual(result['pending_requirements'],92)
+        self.assertEqual(result['reviewed_variables'],98)
     def test_invalid_value_on_every_variable(self):
         # 98 injections indépendantes, sans omettre les dernières variables.
         for i,f in enumerate(self.cfg['fields']):
@@ -60,10 +61,10 @@ class AuditTests(unittest.TestCase):
         self.assertEqual(len(required),98);self.assertEqual(result['checked_cells'],98)
         for s in result['variables']:self.assertEqual(s['blank'],1);self.assertEqual(s['blank_rate'],1)
     def test_default_required_only_documented(self):
-        self.assertEqual([f['id'] for f in self.cfg['fields'] if f['required'] is True],['V001','V006','V057','V058'])
+        self.assertEqual([f['id'] for f in self.cfg['fields'] if f['required'] is True],['V001','V006','V057','V058','V075'])
         row=valid_row(self.cfg)
-        for i in (0,5,56,57):row[i]=' '
-        _,alerts,_=self.run_audit([row]);self.assertEqual(len(alerts),4)
+        for i in (0,5,56,57,74):row[i]=' '
+        _,alerts,_=self.run_audit([row]);self.assertEqual(len(alerts),5)
     def test_numeric_edge_cases(self):
         s=self.cfg['settings']
         for v,expected in [('1 234,56','1234.56'),('-0,25','-0.25'),('1\u202f234,56','1234.56'),('1,2e3','1.2e3'),(0,'0')]:
@@ -152,6 +153,7 @@ class AuditTests(unittest.TestCase):
         cfg['fields'][0]['max_distinct']=None
         result,_,_=self.run_audit([a],cfg)
         self.assertIsNone(result['variables'][10]['distinct_values'])
+        self.assertTrue(any(r['id']=='V001.Q03' and r['execution_status']=='DESACTIVE_PAR_CONFIGURATION' for r in result['rule_review']))
     def test_indicator_boolean_excel(self):
         p=self.root/'boolean.xlsx';w=Workbook();s=w.active
         s.append([f['name'] for f in self.cfg['fields']]);row=valid_row(self.cfg)
@@ -167,22 +169,100 @@ class AuditTests(unittest.TestCase):
     def test_cli_reports_and_no_overwrite(self):
         p=self.csv_file([valid_row(self.cfg)]);out=self.root/'report'
         self.assertEqual(main([str(p),'--output',str(out)]),2)
-        self.assertEqual({x.name for x in out.iterdir()},{'rapport.html','anomalies.csv','variables.csv','synthese.json','parametres.json','donnees_normalisees.csv'})
+        self.assertEqual({x.name for x in out.iterdir()},{'rapport.html','anomalies.csv','variables.csv','synthese.json','parametres.json','donnees_normalisees.csv','controles.csv'})
         result=json.loads((out/'synthese.json').read_text());self.assertEqual(len(result['variables']),98)
         self.assertEqual(len(result['input_sha256']),64)
         self.assertEqual(main([str(p),'--output',str(out)]),3)
         self.assertEqual(csv_safe('=HYPERLINK("x")'),'\'=HYPERLINK("x")')
     def test_fully_configured_can_pass(self):
         cfg=copy.deepcopy(self.cfg)
-        # Compléter le registre (démonstration technique, aucune autorité métier).
         for f in cfg['fields']:
-            for p in f['pending']:
-                key=p['parameter']
-                defaults={'required':False,'allowed_values':[valid_row(cfg)[int(f['id'][1:])-1]],'pattern':'.+','min_length':1,'max_length':100,'minimum':'-100','maximum':'100','date_min':'2000-01-01','date_max':'2100-01-01','identifier_format':None}
-                if key=='identifier_format':f['pending']=[p for p in f['pending'] if p['parameter']!=key]
-                else:f[key]=defaults[key]
+            for requirement in f['pending']:
+                key=requirement['parameter']
+                if key=='domain':f['allowed_values']=[valid_row(cfg)[int(f['id'][1:])-1]]
+                elif key=='identifier_pattern':f['pattern']='[A-Za-z0-9]+'
+                elif key=='identifier_length':f['max_length']=100
+                elif key=='numeric_limits':f['maximum']='100'
+                elif key=='sign_convention':f['sign_convention']='any'
+                else:self.fail('Exigence non prise en charge '+key)
         result,alerts,_=self.run_audit([valid_row(cfg)],cfg)
         self.assertEqual(alerts,[]);self.assertEqual(result['status'],'CONFORME_CONTROLES_EXECUTES')
+        self.assertEqual(result['pending_requirements'],0)
+        self.assertNotIn('A_PRECISER',result['source_rule_counts'])
+    def test_source_review_covers_every_quality_clause(self):
+        for f in self.cfg['fields']:
+            with self.subTest(field=f['name']):
+                source=[x.strip() for x in f['source_quality'].split(';') if x.strip()]
+                reviewed=[x['source_clause'] for x in f['rule_review'] if x['origin']=='Contrôle de qualité']
+                self.assertEqual(source,reviewed)
+                for need in f['pending']:
+                    self.assertIn(need['source_clause'],source)
+                self.assertEqual(f['source_row'],int(f['id'][1:])+1)
+    def test_no_invented_pending_options(self):
+        for f in self.cfg['fields']:
+            for need in f['pending']:
+                self.assertNotIn(need['parameter'],('required','date_min','date_max','minimum','maximum','min_length','max_length'))
+        for n in (1,11,16,24,25,30,57,58,62,63,65,87,93,94,95,98):
+            self.assertEqual(self.cfg['fields'][n-1]['pending'],[],n)
+        self.assertEqual({p['parameter'] for p in self.cfg['fields'][2]['pending']},{'identifier_pattern','identifier_length'})
+        self.assertIsNone(self.cfg['fields'][2]['allowed_values'])
+    def test_positive_coefficients_and_nominal_from_source(self):
+        for n in (36,37,56,62):
+            for value in ('0','-1'):
+                with self.subTest(field=n,value=value):
+                    row=valid_row(self.cfg);row[n-1]=value
+                    _,alerts,_=self.run_audit([row])
+                    self.assertTrue(any(a['rule_id']==f'V{n:03}.MINIMUM' for a in alerts))
+    def test_currency_reference_is_membership_not_only_shape(self):
+        row=valid_row(self.cfg);row[56]='ZZZ';row[57]='XOF'
+        _,alerts,_=self.run_audit([row])
+        self.assertTrue(any(a['rule_id']=='V057.DOMAIN' for a in alerts))
+        self.assertFalse(any(a['field']=='Devise portefeuille' for a in alerts))
+        self.assertEqual(self.cfg['fields'][56]['reference']['publication'],'2026-09-17')
+    def test_case_variants_without_canonical_reference(self):
+        a=valid_row(self.cfg);b=a.copy();a[1]='STOCK';b[1]='stock'
+        _,alerts,_=self.run_audit([a,b])
+        self.assertTrue(any(x['rule_id']=='V002.CASE_VARIANT' for x in alerts))
+    def test_isin_candidates_are_reviewed_without_forcing_internal_codes(self):
+        row=valid_row(self.cfg);row[5]='FR0000120272'
+        result,alerts,_=self.run_audit([row])
+        self.assertTrue(any(a['rule_id']=='V006.ISIN_CANDIDATE' and a['issue_type']=='REVUE' for a in alerts))
+        self.assertEqual(result['review_alerts'],1)
+        self.assertEqual(result['conformity_alerts'],0)
+        row[5]='INTERNE42';_,alerts,_=self.run_audit([row])
+        self.assertFalse(any(a['field']=='Code Valeur' for a in alerts))
+    def test_sign_convention_and_reviewer_alerts(self):
+        cfg=copy.deepcopy(self.cfg);cfg['fields'][13]['sign_convention']='nonpositive'
+        row=valid_row(cfg);row[13]='2'
+        _,alerts,_=self.run_audit([row],cfg)
+        self.assertTrue(any(a['rule_id']=='V014.SIGN_CONVENTION' for a in alerts))
+        row=valid_row(self.cfg);row[10]='-1';row[49]='-1'
+        result,alerts,_=self.run_audit([row])
+        self.assertEqual(result['review_alerts'],2)
+        self.assertTrue(all(a['issue_type']=='REVUE' for a in alerts))
+    def test_source_directed_label_required(self):
+        row=valid_row(self.cfg);row[74]=''
+        _,alerts,_=self.run_audit([row])
+        self.assertTrue(any(a['rule_id']=='V075.REQUIRED' for a in alerts))
+    def test_waiver_requires_reason_and_approver(self):
+        cfg=copy.deepcopy(self.cfg)
+        need=cfg['fields'][1]['pending'][0]
+        need['waiver']={'reason':'Non applicable au périmètre','approved_by':'Référent fictif'}
+        result,_,_=self.run_audit([valid_row(cfg)],cfg)
+        self.assertEqual(result['pending_requirements'],91)
+        self.assertTrue(any(r['execution_status']=='NON_APPLICABLE_JUSTIFIE' for r in result['rule_review']))
+        need['waiver']={'reason':'test'}
+        with self.assertRaises(ConfigurationError):validate_config(cfg)
+    def test_invisible_character_and_separate_report_status(self):
+        row=valid_row(self.cfg);row[5]='AB\u200b12'
+        result,alerts,_=self.run_audit([row])
+        self.assertTrue(any(a['rule_id']=='V006.CONTROL_CHAR' for a in alerts))
+        self.assertEqual(result['variables'][5]['format_invalid'],1)
+        self.assertEqual(result['variables'][1]['technical_status'],'OK_CONTROLES_EXECUTES')
+        self.assertEqual(result['variables'][1]['reference_status'],'A_PRECISER')
+        result,_,_=self.run_audit([])
+        self.assertFalse(any(r['execution_status']=='CONTROLE_EXECUTE' for r in result['rule_review']))
+
 
 
 if __name__=='__main__':unittest.main()

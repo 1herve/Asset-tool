@@ -1,50 +1,55 @@
-# Validation de l’étape QDD
+# Validation de l’étape QDD — version 0.2.0
 
-## Sources et analyse
+## Périmètre et sources
 
-Périmètre établi à partir du cahier des charges « 125 - Asset Database Audit Tool.pdf » et du fichier « Catalogue_controles_INVREF.xlsx » au 12 octobre 2026.
+Cahier des charges « 125 - Asset Database Audit Tool.pdf » et « Catalogue_controles_INVREF.xlsx », au 12 octobre 2026. L’en-tête du modèle en ligne 4 correspond exactement aux 98 variables du catalogue ; le modèle ne contient aucune ligne de données.
 
-- `Catalogue variables` : 98 lignes, V001 à V098, 7 types logiques regroupés en 5 familles techniques.
-- `Données INVREF` : 98 en-têtes, identiques et dans le même ordre que le catalogue ; en-tête ligne 4, zéro ligne de données.
-- `Contrôles formats` : mention explicite des listes autorisées, longueurs, bornes et règles calendaires à charger ultérieurement.
-- `Règles inter-colonnes` : 20 règles différées ; les comparaisons contenues dans les textes qualité sont également différées et documentées par variable.
+Les **98 variables ont été revues individuellement**, avec citation et décision pour chaque proposition qualité. Le fichier `revue_regles.csv` présente la revue des clauses ; `couverture_variables.csv` présente les 98 variables. Les textes originaux restent dans `invref.json`.
 
-La règle « une seule date de valorisation » est un contrôle unitaire entre lignes, donc incluse. Les comparaisons à la date de valorisation dans les autres variables lisent une seconde colonne, donc exclues de cette étape. Les alertes de signe ambigu sont des alertes de revue, pas des interdictions.
+## État de validation
 
-## Critères de recette
-
-| Critère | État livré |
+| Critère | État |
 |---|---|
-| Dépôt accessible et code documenté | Code et automatisation des tests livrés |
-| 98 variables analysées, aucune omise | Référentiel et matrice de 98 lignes |
-| Exhaustivité colonnes et suivi de tous les vides | Implémentés et testés |
-| Formats des nombres, dates, codes et textes | Implémentés et testés |
-| Moteurs domaines, longueurs, bornes, seuils et ISIN | Implémentés et testés avec configurations fictives |
-| Paramètres métier approuvés sur tous les champs | **À obtenir : 284 paramètres initiaux en attente** |
-| Validation sur extraction réelle | **À réaliser localement ; modèle source vide** |
-| Cohérence entre colonnes | Hors périmètre demandé |
+| GitHub et code documenté | Livrés |
+| Revue de chaque variable et chaque proposition qualité | 98 variables, 281 propositions tracées |
+| Présence des colonnes et suivi de tous les vides | Implémentés et testés |
+| Obligations explicites | Date valorisation, code valeur, devises et libellé dérivé incorporé |
+| Types, formats techniques, nombres finis, dates calendaires, caractères parasites | Implémentés et testés |
+| Positivité des coefficients d’indexation, du nominal et de la parité | Implémentée et testée, conformément à la source |
+| Référentiel de devises standard | Liste ISO 4217 courante versionnée et embarquée |
+| Domaines, formats internes, longueurs, seuils et conventions non définis | Moteurs implémentés ; 92 exigences source restent à préciser |
+| Validation sur extraction réelle | À réaliser localement avec revue des alertes |
+| Comparaisons entre colonnes et obligations conditionnelles | Hors périmètre demandé ; documentées pour la suite |
 
-La validation complète requiert de résoudre chaque attente (valeur fournie ou non-applicabilité justifiée), d’exécuter l’outil sur une extraction réelle et de revoir les anomalies avec l’auditeur. La conformité du code sur les données fictives ne suffit pas à valider les règles métier.
+Le registre de 284 options génériques de la version initiale est remplacé. La version 0.2.0 compte les exigences réellement demandées dans la source, et non toutes les options possibles du programme. Détails et explications : `REVUE.md`.
 
-## Tests reproductibles
+## Vérification du programme
 
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-19 tests, comprenant **98 sous-cas d’anomalies indépendants** et **98 vérifications d’obligatoriété**. Couverture : valeurs valides, vides, schéma absent/dupliqué/inconnu, lignes CSV irrégulières et multiligne, dates invalides et bissextiles, calendriers Excel 1900/1904, formules Excel, NaN/infini, conventions décimales, groupements erronés, bornes, domaines, casse, espaces, ISIN/Luhn, unicité, dates multiples, paramètres invalides, rapport et refus d’écrasement.
+29 tests, dont 98 sous-cas d’anomalies et la vérification des vides sur les 98 variables. Les nouveaux cas vérifient la couverture de chaque phrase source, l’absence d’attentes inventées, la positivité explicite, les codes devises inconnus mais correctement formés, les variantes de casse, les caractères invisibles, les candidats ISIN, les conventions de signe, les obligations reportées depuis une directive source et la justification des non-applicabilités.
 
-## Limites de cette version
+Les tests valident les contrôles implémentés et configurés, sans certifier les règles non paramétrées ni l’ensemble des relations métier. Le fichier fictif valide doit produire 98 colonnes présentes, 0 alerte et une indication séparée du référentiel à préciser. Le fichier fictif erroné doit produire les 7 alertes introduites volontairement.
 
-Les codes numériques Excel ont déjà pu perdre des zéros initiaux avant l’audit. Les dates déjà converties par Excel/openpyxl peuvent perdre l’information du numéro de série originel (en particulier le jour fictif de 1900). Les formules ne sont pas recalculées. Les fichiers ne sont pas rapprochés entre arrêtés. Les alertes sont toutes initialisées « à analyser » ; le suivi persistant des décisions auditeur fera partie d’une prochaine étape. Le montant exposé n’est pas calculé ici puisqu’il nécessite de lire un autre champ.
+## Pour clôturer la recette métier
 
-## Vérification locale du 12 octobre 2026
+1. Fournir les référentiels, formats, longueurs, seuils et conventions effectivement demandés, ou justifier leur non-applicabilité avec approbateur.
+2. Documenter les paramètres approuvés dans une configuration versionnée.
+3. Exécuter cette configuration sur une extraction réelle, localement.
+4. Revoir les alertes avec l’auditeur et conserver les décisions.
 
-Les 19 tests sont passés. Lancement sur le modèle Excel source : 98 colonnes présentes, 0 ligne, statut `NON_EXECUTE`. Un fichier fictif de 10 000 lignes (980 000 cellules) a été contrôlé en 4,48 secondes dans l’environnement de développement, sans anomalie de format. Ce temps n’est pas une estimation du temps de traitement des bases de production. Installation éditable vérifiée localement.
+Il n’est pas nécessaire d’inventer une borne absolue pour toutes les dates, une liste fermée pour tous les identifiants ou une obligatoriété pour les champs où le catalogue demande seulement le suivi des vides.
 
-Empreintes des sources analysées :
+## Limites explicites
 
-- `Catalogue_controles_INVREF.xlsx` : `fcce001d5faa1af3eb1f71bcaa7445a483f4da1bff2b1014a2410ecf1899ddd0`.
-- `125 - Asset Database Audit Tool.pdf` : `59e2eae2cf328ad88fba546dc32be62ff3ac7b9dd38be49c9ea31fb2fc267105`.
+Les formules Excel sont signalées sans être exécutées ; des zéros initiaux peuvent avoir été perdus avant l’import des codes numériques. Les dates converties par Excel peuvent perdre le numéro de série original, notamment le jour fictif de 1900. Sous Python 3.10, le caractère NUL peut provoquer une erreur d’import CSV explicite ; les tests de parasites utilisent U+0001, compatible avec toutes les versions annoncées.
 
-Sous Python 3.10, un CSV contenant le caractère NUL (`U+0000`) peut être rejeté par le lecteur CSV avant les contrôles de champs ; il provoque alors une erreur d’import explicite, jamais un avis de conformité. Les tests de caractères de contrôle sur les 98 variables utilisent `U+0001`, compatible avec toutes les versions annoncées.
+La liste de devises est une liste courante au 17 septembre 2026 : une extraction historique nécessite le référentiel applicable à son arrêté. Le référentiel pays n’est pas identifié dans la source ; aucun alpha-2/alpha-3 n’est imposé arbitrairement. Les comparaisons d’arrêtés, montants exposés et suivi persistant de décisions auditeur appartiennent aux prochaines étapes.
+
+## Vérifications locales de la version 0.2.0
+
+Les 29 tests passent. Le fichier fictif erroné produit les 7 alertes prévues. Le fichier valide produit 0 alerte, avec la séparation entre résultats techniques et exigences source à préciser. Le modèle Excel vide produit `NON_EXECUTE`, sans contrôle présenté comme exécuté sur des valeurs. Sur 10 000 lignes fictives, 980 000 cellules ont été vérifiées en 13,22 secondes dans cet environnement de développement. Ce temps n’est pas une estimation pour une extraction de production. Les 7 fichiers de rapport et les 281 clauses de traçabilité ont été vérifiés.
+
+Si une règle connue est désactivée dans une configuration personnalisée, `controles.csv` l’indique (`DESACTIVE_PAR_CONFIGURATION` ou `PARTIEL_PAR_CONFIGURATION`) plutôt que de la présenter comme exécutée.

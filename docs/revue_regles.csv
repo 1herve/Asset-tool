@@ -1,0 +1,282 @@
+﻿id_variable;variable;ligne_catalogue;id_regle;origine;texte_source;état;précisions nécessaires;décision
+V001;Date de valorisation;2;V001.Q01;Contrôle de qualité;Obligatoire;ACTIF;;Exigence définie et appliquée dans cette version.
+V001;Date de valorisation;2;V001.Q02;Contrôle de qualité;date valide;ACTIF;;Exigence définie et appliquée dans cette version.
+V001;Date de valorisation;2;V001.Q03;Contrôle de qualité;une seule date par extraction sauf justification;ACTIF;;Exigence définie et appliquée dans cette version.
+V001;Date de valorisation;2;V001.Q04;Contrôle de qualité;cohérente avec le nom du fichier et la date de lancement.;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V002;Type de stock;3;V002.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V002.domain;"Contrôle paramétrable ; précision source réellement absente."
+V002;Type de stock;3;V002.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V002;Type de stock;3;V002.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V003;Code Portefeuille;4;V003.Q01;Contrôle de qualité;Non vide si requis;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V003;Code Portefeuille;4;V003.Q02;Contrôle de qualité;Suppression des espaces parasites;ACTIF;;Exigence définie et appliquée dans cette version.
+V003;Code Portefeuille;4;V003.Q03;Contrôle de qualité;Format et longueur conformes au référentiel;A_PRECISER;V003.identifier_pattern, V003.identifier_length;"Contrôle paramétrable ; précision source réellement absente."
+V004;Libellé court Portefeuille;5;V004.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V004.domain;"Contrôle paramétrable ; précision source réellement absente."
+V004;Libellé court Portefeuille;5;V004.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V004;Libellé court Portefeuille;5;V004.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V005;Catégorie Valeur;6;V005.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V005.domain;"Contrôle paramétrable ; précision source réellement absente."
+V005;Catégorie Valeur;6;V005.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V005;Catégorie Valeur;6;V005.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V006;Code Valeur;7;V006.Q01;Contrôle de qualité;Obligatoire;ACTIF;;Exigence définie et appliquée dans cette version.
+V006;Code Valeur;7;V006.Q02;Contrôle de qualité;format identifiant reconnu (ex. ISIN sur 12 caractères lorsqu’applicable);A_PRECISER;V006.identifier_pattern;"Structure et clé ISIN contrôlées automatiquement pour les valeurs de forme ISIN ; périmètre et formats internes restent à préciser."
+V006;Code Valeur;7;V006.Q03;Contrôle de qualité;pas de caractères parasites.;ACTIF;;Exigence définie et appliquée dans cette version.
+V007;Libellé Valeur;8;V007.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V007.domain;"Contrôle paramétrable ; précision source réellement absente."
+V007;Libellé Valeur;8;V007.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V007;Libellé Valeur;8;V007.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V008;Compound code;9;V008.Q01;Contrôle de qualité;Non vide si requis;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V008;Compound code;9;V008.Q02;Contrôle de qualité;Suppression des espaces parasites;ACTIF;;Exigence définie et appliquée dans cette version.
+V008;Compound code;9;V008.Q03;Contrôle de qualité;Format et longueur conformes au référentiel;A_PRECISER;V008.identifier_pattern, V008.identifier_length;"Contrôle paramétrable ; précision source réellement absente."
+V009;Statut de la ligne;10;V009.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V009.domain;"Contrôle paramétrable ; précision source réellement absente."
+V009;Statut de la ligne;10;V009.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V009;Statut de la ligne;10;V009.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V010;Intention de gestion;11;V010.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V010.domain;"Contrôle paramétrable ; précision source réellement absente."
+V010;Intention de gestion;11;V010.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V010;Intention de gestion;11;V010.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V011;Quantité;12;V011.Q01;Contrôle de qualité;Numérique;ACTIF;;Exigence définie et appliquée dans cette version.
+V011;Quantité;12;V011.Q02;Contrôle de qualité;unité compatible avec le mode d’expression;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V011;Quantité;12;V011.Q03;Contrôle de qualité;zéro ou négatif uniquement si le type de position l’autorise.;REVUE;;"Quantité nulle/négative signalée pour revue ; autorisation par type de position différée."
+V012;Mode Expression Quantité;13;V012.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V012.domain;"Contrôle paramétrable ; précision source réellement absente."
+V012;Mode Expression Quantité;13;V012.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V012;Mode Expression Quantité;13;V012.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V013;Valeur d'acqu Brute;14;V013.Q01;Contrôle de qualité;Numérique;ACTIF;;Exigence définie et appliquée dans cette version.
+V013;Valeur d'acqu Brute;14;V013.Q02;Contrôle de qualité;devise et signe cohérents;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V013;Valeur d'acqu Brute;14;V013.Q03;Contrôle de qualité;valeurs extrêmes revues.;A_PRECISER;V013.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V014;Dépréciation / Impairment;15;V014.Q01;Contrôle de qualité;Numérique;ACTIF;;Exigence définie et appliquée dans cette version.
+V014;Dépréciation / Impairment;15;V014.Q02;Contrôle de qualité;signe conforme à la convention;A_PRECISER;V014.sign_convention;"Contrôle paramétrable ; précision source réellement absente."
+V014;Dépréciation / Impairment;15;V014.Q03;Contrôle de qualité;ne doit pas augmenter la valeur nette si comptabilisée en réduction.;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V015;Valeur d'acqu Nette de dépréciation;16;V015.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V015;Valeur d'acqu Nette de dépréciation;16;V015.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V015;Valeur d'acqu Nette de dépréciation;16;V015.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V015.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V016;Valeur boursière;17;V016.Q01;Contrôle de qualité;Numérique;ACTIF;;Exigence définie et appliquée dans cette version.
+V016;Valeur boursière;17;V016.Q02;Contrôle de qualité;valeur nulle ou négative investiguée;REVUE;;"Alerte exécutée pour revue humaine ; ne vaut pas rejet automatique."
+V016;Valeur boursière;17;V016.Q03;Contrôle de qualité;cohérente avec quantité, cours, nominal et change.;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V017;Coupon couru;18;V017.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V017;Coupon couru;18;V017.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V017;Coupon couru;18;V017.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V017.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V018;Indicateur forçage coupon couru;19;V018.Q01;Contrôle de qualité;Valeur appartenant à la liste de codes autorisés;A_PRECISER;V018.domain;"Contrôle paramétrable ; précision source réellement absente."
+V018;Indicateur forçage coupon couru;19;V018.Q02;Contrôle de qualité;Libellé associé présent et cohérent;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V019;Coupon couru à l'achat;20;V019.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V019;Coupon couru à l'achat;20;V019.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V019;Coupon couru à l'achat;20;V019.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V019.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V020;Intérêts Perçus d'Avance;21;V020.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V020;Intérêts Perçus d'Avance;21;V020.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V020;Intérêts Perçus d'Avance;21;V020.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V020.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V021;Valeur Acquisition Amortie;22;V021.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V021;Valeur Acquisition Amortie;22;V021.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V021;Valeur Acquisition Amortie;22;V021.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V021.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V022;Cours Amorti Unitaire;23;V022.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V022;Cours Amorti Unitaire;23;V022.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V022;Cours Amorti Unitaire;23;V022.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V022.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V023;Prix de Revient Unitaire;24;V023.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V023;Prix de Revient Unitaire;24;V023.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V023;Prix de Revient Unitaire;24;V023.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V023.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V024;Cours de la valeur;25;V024.Q01;Contrôle de qualité;Numérique;ACTIF;;Exigence définie et appliquée dans cette version.
+V024;Cours de la valeur;25;V024.Q02;Contrôle de qualité;borne plausible selon le mode d’expression;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V024;Cours de la valeur;25;V024.Q03;Contrôle de qualité;forçage documenté.;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V025;Date de  Cotation;26;V025.Q01;Contrôle de qualité;Date valide;ACTIF;;Exigence définie et appliquée dans cette version.
+V025;Date de  Cotation;26;V025.Q02;Contrôle de qualité;non postérieure à la date de valorisation;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V025;Date de  Cotation;26;V025.Q03;Contrôle de qualité;ancienneté du prix calculée et alertée.;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V026;Mode d'Expression Cours;27;V026.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V026.domain;"Contrôle paramétrable ; précision source réellement absente."
+V026;Mode d'Expression Cours;27;V026.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V026;Mode d'Expression Cours;27;V026.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V027;Indicateur forçage cours;28;V027.Q01;Contrôle de qualité;Valeur appartenant à la liste de codes autorisés;A_PRECISER;V027.domain;"Contrôle paramétrable ; précision source réellement absente."
+V027;Indicateur forçage cours;28;V027.Q02;Contrôle de qualité;Libellé associé présent et cohérent;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V028;Plus ou moins values latentes brute;29;V028.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V028;Plus ou moins values latentes brute;29;V028.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V028;Plus ou moins values latentes brute;29;V028.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V028.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V029;Plus ou moins values latentes nette;30;V029.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V029;Plus ou moins values latentes nette;30;V029.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V029;Plus ou moins values latentes nette;30;V029.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V029.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V030;Date Fiscale;31;V030.Q01;Contrôle de qualité;Format date valide;ACTIF;;Exigence définie et appliquée dans cette version.
+V030;Date Fiscale;31;V030.Q02;Contrôle de qualité;Date plausible et non future par rapport à la date de valorisation sauf échéance/call;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V031;Plus ou Moins value latente Change;32;V031.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V031;Plus ou Moins value latente Change;32;V031.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V031;Plus ou Moins value latente Change;32;V031.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V031.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V032;Plus ou Moins value latente Titre;33;V032.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V032;Plus ou Moins value latente Titre;33;V032.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V032;Plus ou Moins value latente Titre;33;V032.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V032.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V033;Valeur de rembour non indexée;34;V033.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V033;Valeur de rembour non indexée;34;V033.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V033;Valeur de rembour non indexée;34;V033.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V033.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V034;Valeur de rembour index inflation;35;V034.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V034;Valeur de rembour index inflation;35;V034.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V034;Valeur de rembour index inflation;35;V034.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V034.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V035;Valeur de rembour index achat;36;V035.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V035;Valeur de rembour index achat;36;V035.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V035;Valeur de rembour index achat;36;V035.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V035.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V036;Coefficient d'index à date d'achat;37;V036.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V036;Coefficient d'index à date d'achat;37;V036.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V036;Coefficient d'index à date d'achat;37;V036.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V036.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V036;Coefficient d'index à date d'achat;37;V036.C01;Contrôle de cohérence principal;Positif;ACTIF;;"Positivité interprétée strictement (> 0) pour coefficient/nominal ; contrôle unitaire, aucune comparaison intercolonnes."
+V037;Coefficient d'index à date de valo;38;V037.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V037;Coefficient d'index à date de valo;38;V037.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V037;Coefficient d'index à date de valo;38;V037.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V037.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V037;Coefficient d'index à date de valo;38;V037.C01;Contrôle de cohérence principal;Positif;ACTIF;;"Positivité interprétée strictement (> 0) pour coefficient/nominal ; contrôle unitaire, aucune comparaison intercolonnes."
+V038;Taux actuariel achat-Daily Coupon;39;V038.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V038;Taux actuariel achat-Daily Coupon;39;V038.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V038;Taux actuariel achat-Daily Coupon;39;V038.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V038.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V039;Taux actuariel à l'achat;40;V039.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V039;Taux actuariel à l'achat;40;V039.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V039;Taux actuariel à l'achat;40;V039.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V039.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V040;Prime décote globale initiale;41;V040.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V040;Prime décote globale initiale;41;V040.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V040;Prime décote globale initiale;41;V040.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V040.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V041;Amortissement positif;42;V041.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V041;Amortissement positif;42;V041.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V041;Amortissement positif;42;V041.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V041.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V042;Amortissement négatif;43;V042.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V042;Amortissement négatif;43;V042.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V042;Amortissement négatif;43;V042.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V042.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V043;Amortissement global;44;V043.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V043;Amortissement global;44;V043.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V043;Amortissement global;44;V043.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V043.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V044;Part prime décote indexation;45;V044.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V044;Part prime décote indexation;45;V044.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V044;Part prime décote indexation;45;V044.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V044.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V045;Prime décote globale restante;46;V045.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V045;Prime décote globale restante;46;V045.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V045;Prime décote globale restante;46;V045.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V045.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V046;Indicateur forçage valeur actuelle;47;V046.Q01;Contrôle de qualité;Valeur appartenant à la liste de codes autorisés;A_PRECISER;V046.domain;"Contrôle paramétrable ; précision source réellement absente."
+V046;Indicateur forçage valeur actuelle;47;V046.Q02;Contrôle de qualité;Libellé associé présent et cohérent;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V047;Taux de rendement à la date de call;48;V047.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V047;Taux de rendement à la date de call;48;V047.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V047;Taux de rendement à la date de call;48;V047.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V047.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V048;Taux de rendement;49;V048.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V048;Taux de rendement;49;V048.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V048;Taux de rendement;49;V048.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V048.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V049;Vie moyenne;50;V049.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V049;Vie moyenne;50;V049.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V049;Vie moyenne;50;V049.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V049.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V050;Duration;51;V050.Q01;Contrôle de qualité;Numérique;ACTIF;;Exigence définie et appliquée dans cette version.
+V050;Duration;51;V050.Q02;Contrôle de qualité;généralement positive;REVUE;;"Alerte exécutée pour revue humaine ; ne vaut pas rejet automatique."
+V050;Duration;51;V050.Q03;Contrôle de qualité;valeurs atypiques ou supérieures à la maturité résiduelle revues.;A_PRECISER;V050.numeric_limits;"Signe négatif signalé / revue possible ; seuils des valeurs atypiques non chiffrés. Comparaison maturité/type instrument différée."
+V051;Sensibilité;52;V051.Q01;Contrôle de qualité;Numérique;ACTIF;;Exigence définie et appliquée dans cette version.
+V051;Sensibilité;52;V051.Q02;Contrôle de qualité;convention de signe documentée;A_PRECISER;V051.sign_convention;"Contrôle paramétrable ; précision source réellement absente."
+V051;Sensibilité;52;V051.Q03;Contrôle de qualité;rapprochement avec la duration.;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V052;Convexité;53;V052.Q01;Contrôle de qualité;Numérique;ACTIF;;Exigence définie et appliquée dans cette version.
+V052;Convexité;53;V052.Q02;Contrôle de qualité;valeurs négatives ou extrêmes analysées selon le type d’instrument.;A_PRECISER;V052.numeric_limits;"Signe négatif signalé / revue possible ; seuils des valeurs atypiques non chiffrés. Comparaison maturité/type instrument différée."
+V053;Code Emetteur;54;V053.Q01;Contrôle de qualité;Non vide si requis;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V053;Code Emetteur;54;V053.Q02;Contrôle de qualité;Suppression des espaces parasites;ACTIF;;Exigence définie et appliquée dans cette version.
+V053;Code Emetteur;54;V053.Q03;Contrôle de qualité;Format et longueur conformes au référentiel;A_PRECISER;V053.identifier_pattern, V053.identifier_length;"Contrôle paramétrable ; précision source réellement absente."
+V054;Libellé Code Emetteur;55;V054.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V054.domain;"Contrôle paramétrable ; précision source réellement absente."
+V054;Libellé Code Emetteur;55;V054.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V054;Libellé Code Emetteur;55;V054.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V055;Code pays de l'Emetteur;56;V055.Q01;Contrôle de qualité;Code pays conforme au référentiel retenu;A_PRECISER;V055.domain;"Contrôle paramétrable ; précision source réellement absente."
+V055;Code pays de l'Emetteur;56;V055.Q02;Contrôle de qualité;non vide lorsque l’émetteur est identifié.;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V056;Nominal de la valeur unitaire;57;V056.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V056;Nominal de la valeur unitaire;57;V056.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V056;Nominal de la valeur unitaire;57;V056.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V056.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V056;Nominal de la valeur unitaire;57;V056.C01;Contrôle de cohérence principal;Positif;ACTIF;;"Positivité interprétée strictement (> 0) pour coefficient/nominal ; contrôle unitaire, aucune comparaison intercolonnes."
+V057;Devise de gestion;58;V057.Q01;Contrôle de qualité;Code devise standard;ACTIF;;Exigence définie et appliquée dans cette version.
+V057;Devise de gestion;58;V057.Q02;Contrôle de qualité;non vide.;ACTIF;;Exigence définie et appliquée dans cette version.
+V058;Devise portefeuille;59;V058.Q01;Contrôle de qualité;Code devise standard;ACTIF;;Exigence définie et appliquée dans cette version.
+V058;Devise portefeuille;59;V058.Q02;Contrôle de qualité;non vide.;ACTIF;;Exigence définie et appliquée dans cette version.
+V059;Type de Devise;60;V059.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V059.domain;"Contrôle paramétrable ; précision source réellement absente."
+V059;Type de Devise;60;V059.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V059;Type de Devise;60;V059.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V060;Type inventaire;61;V060.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V060.domain;"Contrôle paramétrable ; précision source réellement absente."
+V060;Type inventaire;61;V060.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V060;Type inventaire;61;V060.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V061;Change de valo entre PC et QC;62;V061.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V061;Change de valo entre PC et QC;62;V061.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V061;Change de valo entre PC et QC;62;V061.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V061.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V062;Parité de change;63;V062.Q01;Contrôle de qualité;Numérique strictement positive;ACTIF;;Exigence définie et appliquée dans cette version.
+V062;Parité de change;63;V062.Q02;Contrôle de qualité;égale à 1 lorsque les devises sont identiques selon convention.;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V063;Date d'échéance;64;V063.Q01;Contrôle de qualité;Date valide;ACTIF;;Exigence définie et appliquée dans cette version.
+V063;Date d'échéance;64;V063.Q02;Contrôle de qualité;requise pour les instruments à échéance;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V063;Date d'échéance;64;V063.Q03;Contrôle de qualité;date passée expliquée si position toujours présente.;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V064;Existence d'un Put/Call;65;V064.Q01;Contrôle de qualité;Code contrôlé;A_PRECISER;V064.domain;"Contrôle paramétrable ; précision source réellement absente."
+V064;Existence d'un Put/Call;65;V064.Q02;Contrôle de qualité;domaine fermé;A_PRECISER;V064.domain;"Contrôle paramétrable ; précision source réellement absente."
+V064;Existence d'un Put/Call;65;V064.Q03;Contrôle de qualité;obligatoire pour instruments concernés.;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V065;Prochaine date de call;66;V065.Q01;Contrôle de qualité;Date valide;ACTIF;;Exigence définie et appliquée dans cette version.
+V065;Prochaine date de call;66;V065.Q02;Contrôle de qualité;requise si un call existe;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V065;Prochaine date de call;66;V065.Q03;Contrôle de qualité;postérieure ou égale à la date de valorisation.;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V066;Security type;67;V066.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V066.domain;"Contrôle paramétrable ; précision source réellement absente."
+V066;Security type;67;V066.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V066;Security type;67;V066.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V067;Security group;68;V067.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V067.domain;"Contrôle paramétrable ; précision source réellement absente."
+V067;Security group;68;V067.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V067;Security group;68;V067.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V068;Type de valeur;69;V068.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V068.domain;"Contrôle paramétrable ; précision source réellement absente."
+V068;Type de valeur;69;V068.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V068;Type de valeur;69;V068.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V069;Libellé Type de valeur;70;V069.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V069.domain;"Contrôle paramétrable ; précision source réellement absente."
+V069;Libellé Type de valeur;70;V069.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V069;Libellé Type de valeur;70;V069.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V070;Code Famille d'Actif Simplifiée;71;V070.Q01;Contrôle de qualité;Non vide si requis;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V070;Code Famille d'Actif Simplifiée;71;V070.Q02;Contrôle de qualité;Suppression des espaces parasites;ACTIF;;Exigence définie et appliquée dans cette version.
+V070;Code Famille d'Actif Simplifiée;71;V070.Q03;Contrôle de qualité;Format et longueur conformes au référentiel;A_PRECISER;V070.identifier_pattern, V070.identifier_length;"Contrôle paramétrable ; précision source réellement absente."
+V071;Libellé Famille d'Actif Simplifiée;72;V071.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V071.domain;"Contrôle paramétrable ; précision source réellement absente."
+V071;Libellé Famille d'Actif Simplifiée;72;V071.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V071;Libellé Famille d'Actif Simplifiée;72;V071.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V072;Code Famille d'Actif Complète;73;V072.Q01;Contrôle de qualité;Non vide si requis;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V072;Code Famille d'Actif Complète;73;V072.Q02;Contrôle de qualité;Suppression des espaces parasites;ACTIF;;Exigence définie et appliquée dans cette version.
+V072;Code Famille d'Actif Complète;73;V072.Q03;Contrôle de qualité;Format et longueur conformes au référentiel;A_PRECISER;V072.identifier_pattern, V072.identifier_length;"Contrôle paramétrable ; précision source réellement absente."
+V073;Libellé Famille d'Actif Complète;74;V073.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V073.domain;"Contrôle paramétrable ; précision source réellement absente."
+V073;Libellé Famille d'Actif Complète;74;V073.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V073;Libellé Famille d'Actif Complète;74;V073.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V074;Indicateur dérivé Incorporé;75;V074.Q01;Contrôle de qualité;Code contrôlé;A_PRECISER;V074.domain;"Contrôle paramétrable ; précision source réellement absente."
+V074;Indicateur dérivé Incorporé;75;V074.Q02;Contrôle de qualité;libellé associé obligatoire;ACTIF;;Obligation unitaire reportée sur Libellé Indicateur dérivé Incorporé (V075), sans comparaison des valeurs.
+V074;Indicateur dérivé Incorporé;75;V074.Q03;Contrôle de qualité;cohérent avec le type de titre.;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V075;Libellé Indicateur dérivé Incorporé;76;V075.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V075.domain;"Contrôle paramétrable ; précision source réellement absente."
+V075;Libellé Indicateur dérivé Incorporé;76;V075.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V075;Libellé Indicateur dérivé Incorporé;76;V075.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V076;Méthode de comptabilisation;77;V076.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V076.domain;"Contrôle paramétrable ; précision source réellement absente."
+V076;Méthode de comptabilisation;77;V076.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V076;Méthode de comptabilisation;77;V076.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V077;Classement Euro Performance;78;V077.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V077.domain;"Contrôle paramétrable ; précision source réellement absente."
+V077;Classement Euro Performance;78;V077.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V077;Classement Euro Performance;78;V077.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V078;Code secteur économique;79;V078.Q01;Contrôle de qualité;Non vide si requis;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V078;Code secteur économique;79;V078.Q02;Contrôle de qualité;Suppression des espaces parasites;ACTIF;;Exigence définie et appliquée dans cette version.
+V078;Code secteur économique;79;V078.Q03;Contrôle de qualité;Format et longueur conformes au référentiel;A_PRECISER;V078.identifier_pattern, V078.identifier_length;"Contrôle paramétrable ; précision source réellement absente."
+V079;Libellé court secteur économique;80;V079.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V079.domain;"Contrôle paramétrable ; précision source réellement absente."
+V079;Libellé court secteur économique;80;V079.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V079;Libellé court secteur économique;80;V079.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V080;Numéro de transaction interne;81;V080.Q01;Contrôle de qualité;Format stable;A_PRECISER;V080.identifier_pattern;"Contrôle paramétrable ; précision source réellement absente."
+V080;Numéro de transaction interne;81;V080.Q02;Contrôle de qualité;unicité appréciée avec portefeuille/titre/lot, pas nécessairement seul.;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V081;Référence externe;82;V081.Q01;Contrôle de qualité;Non vide si requis;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V081;Référence externe;82;V081.Q02;Contrôle de qualité;Suppression des espaces parasites;ACTIF;;Exigence définie et appliquée dans cette version.
+V081;Référence externe;82;V081.Q03;Contrôle de qualité;Format et longueur conformes au référentiel;A_PRECISER;V081.identifier_pattern, V081.identifier_length;"Contrôle paramétrable ; précision source réellement absente."
+V082;Numéro de compte de placement;83;V082.Q01;Contrôle de qualité;Non vide si requis;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V082;Numéro de compte de placement;83;V082.Q02;Contrôle de qualité;Suppression des espaces parasites;ACTIF;;Exigence définie et appliquée dans cette version.
+V082;Numéro de compte de placement;83;V082.Q03;Contrôle de qualité;Format et longueur conformes au référentiel;A_PRECISER;V082.identifier_pattern, V082.identifier_length;"Contrôle paramétrable ; précision source réellement absente."
+V083;Libellé Num de compte de placement;84;V083.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V083.domain;"Contrôle paramétrable ; précision source réellement absente."
+V083;Libellé Num de compte de placement;84;V083.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V083;Libellé Num de compte de placement;84;V083.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V084;Tri T2;85;V084.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V084.domain;"Contrôle paramétrable ; précision source réellement absente."
+V084;Tri T2;85;V084.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V084;Tri T2;85;V084.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V085;Engagement de détention;86;V085.Q01;Contrôle de qualité;Valeur appartenant à la liste de codes autorisés;A_PRECISER;V085.domain;"Contrôle paramétrable ; précision source réellement absente."
+V085;Engagement de détention;86;V085.Q02;Contrôle de qualité;Libellé associé présent et cohérent;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V086;Valeur de recouvrement unitaire;87;V086.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V086;Valeur de recouvrement unitaire;87;V086.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V086;Valeur de recouvrement unitaire;87;V086.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V086.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V087;Date de fin d'engagement;88;V087.Q01;Contrôle de qualité;Format date valide;ACTIF;;Exigence définie et appliquée dans cette version.
+V087;Date de fin d'engagement;88;V087.Q02;Contrôle de qualité;Date plausible et non future par rapport à la date de valorisation sauf échéance/call;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V088;Référence contrat;89;V088.Q01;Contrôle de qualité;Non vide si requis;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V088;Référence contrat;89;V088.Q02;Contrôle de qualité;Suppression des espaces parasites;ACTIF;;Exigence définie et appliquée dans cette version.
+V088;Référence contrat;89;V088.Q03;Contrôle de qualité;Format et longueur conformes au référentiel;A_PRECISER;V088.identifier_pattern, V088.identifier_length;"Contrôle paramétrable ; précision source réellement absente."
+V089;Valeur bilan nette comptable;90;V089.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V089;Valeur bilan nette comptable;90;V089.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V089;Valeur bilan nette comptable;90;V089.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V089.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V090;Dotation Reprise;91;V090.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V090;Dotation Reprise;91;V090.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V090;Dotation Reprise;91;V090.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V090.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V091;Provision Estimée;92;V091.Q01;Contrôle de qualité;Valeur numérique exploitable;ACTIF;;Exigence définie et appliquée dans cette version.
+V091;Provision Estimée;92;V091.Q02;Contrôle de qualité;Absence de NaN/infini et séparateurs non numériques;ACTIF;;Exigence définie et appliquée dans cette version.
+V091;Provision Estimée;92;V091.Q03;Contrôle de qualité;Contrôle des bornes et des valeurs extrêmes;A_PRECISER;V091.numeric_limits;"Contrôle paramétrable ; précision source réellement absente."
+V092;Code Emetteur Old;93;V092.Q01;Contrôle de qualité;Non vide si requis;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V092;Code Emetteur Old;93;V092.Q02;Contrôle de qualité;Suppression des espaces parasites;ACTIF;;Exigence définie et appliquée dans cette version.
+V092;Code Emetteur Old;93;V092.Q03;Contrôle de qualité;Format et longueur conformes au référentiel;A_PRECISER;V092.identifier_pattern, V092.identifier_length;"Contrôle paramétrable ; précision source réellement absente."
+V093;Date Lancement Inventaire;94;V093.Q01;Contrôle de qualité;Format date valide;ACTIF;;Exigence définie et appliquée dans cette version.
+V093;Date Lancement Inventaire;94;V093.Q02;Contrôle de qualité;Date plausible et non future par rapport à la date de valorisation sauf échéance/call;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V094;Clé FIFO;95;V094.Q01;Contrôle de qualité;Non vide si le suivi par lot est attendu;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V094;Clé FIFO;95;V094.Q02;Contrôle de qualité;stabilité et unicité contrôlées dans son périmètre.;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V095;PRICEDATE;96;V095.Q01;Contrôle de qualité;Date valide;ACTIF;;Exigence définie et appliquée dans cette version.
+V095;PRICEDATE;96;V095.Q02;Contrôle de qualité;non postérieure à la date de valorisation;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V095;PRICEDATE;96;V095.Q03;Contrôle de qualité;ancienneté suivie.;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V096;DATASOURCE;97;V096.Q01;Contrôle de qualité;Valeur appartenant au référentiel autorisé;A_PRECISER;V096.domain;"Contrôle paramétrable ; précision source réellement absente."
+V096;DATASOURCE;97;V096.Q02;Contrôle de qualité;Absence d’espaces parasites et de variantes de casse;ACTIF;;Exigence définie et appliquée dans cette version.
+V096;DATASOURCE;97;V096.Q03;Contrôle de qualité;Taux de valeurs non renseignées suivi;ACTIF;;Exigence définie et appliquée dans cette version.
+V097;PRICESOURCE;98;V097.Q01;Contrôle de qualité;Source présente pour toute position valorisée;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."
+V097;PRICESOURCE;98;V097.Q02;Contrôle de qualité;valeur issue d’une liste autorisée.;A_PRECISER;V097.domain;"Contrôle paramétrable ; précision source réellement absente."
+V098;PRICEINFO;99;V098.Q01;Contrôle de qualité;Information de prix présente lorsqu’un forçage ou une méthode spécifique est utilisé.;DIFFERE;;"Nécessite une autre colonne, un contexte ou un autre arrêté ; hors périmètre actuel."

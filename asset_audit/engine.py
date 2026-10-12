@@ -201,8 +201,17 @@ def validate_config(cfg: dict) -> None:
         if f['kind'] != 'date' and any(f[k] is not None for k in ('date_min','date_max')):
             raise ConfigurationError('Bornes calendaires sur une variable non date')
         for p in f['pending']:
-            if p['parameter'] not in f or not isinstance(p['reason'],str):
+            parameters=p.get('parameters',[p['parameter']])
+            if not parameters or any(k not in f for k in parameters) or not isinstance(p['reason'],str):
                 raise ConfigurationError('Paramètre en attente inconnu ou motif invalide')
+            if p.get('resolution','any') not in ('any','all'):
+                raise ConfigurationError('Mode de résolution inconnu')
+            if p.get('waiver') is not None and (not isinstance(p['waiver'],dict) or not p['waiver'].get('reason') or not p['waiver'].get('approved_by')):
+                raise ConfigurationError('Non-applicabilité sans motif ou approbateur')
+        if f.get('sign_convention') not in (None,'positive','negative','nonnegative','nonpositive','any'):
+            raise ConfigurationError('Convention de signe inconnue')
+        if f.get('sign_convention') is not None and f['kind']!='number':
+            raise ConfigurationError('Convention de signe sur un champ non numérique')
         for k in ('unique', 'exclusive_minimum', 'review_negative', 'review_nonpositive'):
             if type(f[k]) is not bool:
                 raise ConfigurationError(f'{k} doit être booléen')
@@ -302,7 +311,15 @@ def input_rows(path: Path, sheet: str | None, header_row: int, delimiter: str, e
 # dans le référentiel pour une variable donnée.
 # Exemple : borne min/max, domaine autorisé, format, etc.
 def pending_parameters(f: dict) -> list[dict]:
-    return [p for p in f['pending'] if f[p['parameter']] is None]
+    """Compte des exigences sources, pas des options génériques de configuration."""
+    pending=[]
+    for p in f['pending']:
+        if p.get('waiver'):continue
+        parameters=p.get('parameters',[p['parameter']])
+        configured=[f[k] is not None for k in parameters]
+        resolved=all(configured) if p.get('resolution')=='all' else any(configured)
+        if not resolved:pending.append(p)
+    return pending
 
 # ============================================================
 # 11. LISTE DES CONTRÔLES ACTIFS POUR UNE VARIABLE
@@ -317,6 +334,9 @@ def active_checks(f: dict, settings: dict) -> list[str]:
     if f['unique']: checks.append('unique')
     if f['case'] != 'preserve': checks.append('case')
     if f['review_negative'] or f['review_nonpositive']: checks.append('review_sign')
+    if f.get('sign_convention') is not None:checks.append('sign_convention')
+    if f.get('detect_case_variants'):checks.append('case_variants')
+    if f.get('auto_isin'):checks.append('isin_candidate_review')
     if (f['unique'] or f['max_distinct']) and not settings['track_distinct']:
         raise ConfigurationError('track_distinct doit être true pour les contrôles d’unicité')
     return checks
@@ -343,18 +363,25 @@ def audit(path: Path, cfg: dict, emit: Callable[[dict], None], *, sheet: str | N
     validate_config(cfg)
     fields = cfg['fields']; settings=cfg['settings']
     field_by_name = {f['name']:f for f in fields}
-    stats = {f['name']:{'id':f['id'],'variable':f['name'],'present':False,'filled':0,'blank':0,'format_invalid':0,'anomaly_cells':0,'rules':active_checks(f,settings),'pending':pending_parameters(f),'deferred':f['deferred'],'counts':Counter()} for f in fields}
+    stats = {f['name']:{'id':f['id'],'variable':f['name'],'present':False,'filled':0,'blank':0,'format_invalid':0,'type_invalid':0,'anomaly_cells':0,'rules':active_checks(f,settings),'pending':pending_parameters(f),'deferred':f['deferred'],'source_review':f.get('rule_review',[]),'completeness_policy':f.get('completeness_policy',''),'counts':Counter(),'review_alerts':0} for f in fields}
     distinct = {f['name']:set() for f in fields} if settings['track_distinct'] else {}
+    case_labels={f['name']:{} for f in fields if f.get('detect_case_variants')}
     counts=Counter(); rows=0; empty_rows=0; schema_errors=0
+    review_alerts=0
     checked_cells=0; blank_headers=[]
     def alert(rule: str, message: str, line: int | None=None, f: dict | None=None,
               raw: Any=None, normalized: Any=None, threshold: Any=None, severity: str | None=None):
-        nonlocal schema_errors
+        nonlocal schema_errors, review_alerts
         counts[rule]+=1
-        if f is not None: stats[f['name']]['counts'][rule]+=1
+        is_review=severity=='À analyser'
+        if is_review:review_alerts+=1
+        if f is not None:
+            stats[f['name']]['counts'][rule]+=1
+            if is_review:stats[f['name']]['review_alerts']+=1
         else: schema_errors+=1
         emit({'source_line':line,'field':f['name'] if f else '',
               'rule_id':f"{f['id'] if f else 'SCHEMA'}.{rule}",
+              'issue_type':'REVUE' if is_review else 'ANOMALIE',
               'severity':severity or (f['severity'] if f else 'Critique'),
               'raw_value':raw_text(raw),'normalized_value':raw_text(normalized),
               'threshold':raw_text(threshold),'message':message,'review_status':'à analyser'})
@@ -394,6 +421,8 @@ def audit(path: Path, cfg: dict, emit: Callable[[dict], None], *, sheet: str | N
             idx=positions[name];v=values[idx] if idx<len(values) else None
             checked_cells+=1
             cell_count=sum(s['counts'].values())
+            format_codes={'FORMAT','WHITESPACE','CONTROL_CHAR','CASE','CASE_VARIANT','DOMAIN','PATTERN','ISIN','MIN_LENGTH','MAX_LENGTH','MINIMUM','MAXIMUM','DATE_MIN','DATE_MAX','SIGN_CONVENTION'}
+            format_before=sum(s['counts'][k] for k in format_codes)
             if blank(v):
                 s['blank']+=1
                 normalized_row[name]=''
@@ -403,8 +432,8 @@ def audit(path: Path, cfg: dict, emit: Callable[[dict], None], *, sheet: str | N
                 text=raw_text(v);norm=text.strip()
                 if isinstance(v,str) and text!=norm:
                     alert('WHITESPACE','Espaces en début ou fin de valeur.',line,f,v,norm)
-                if any(unicodedata.category(c)=='Cc' for c in text):
-                    alert('CONTROL_CHAR','Caractère de contrôle présent.',line,f,v,norm)
+                if any(unicodedata.category(c) in ('Cc','Cf','Cs') for c in text):
+                    alert('CONTROL_CHAR','Caractère de contrôle ou caractère invisible présent.',line,f,v,norm)
                 if f['kind'] in ('identifier','indicator','text') and re.search(r' {2,}|[\u00a0\u202f]',norm):
                     alert('TEXT_SPACING','Espaces répétés ou insécables à examiner.',line,f,v,norm,severity='À analyser')
                 try:
@@ -427,12 +456,19 @@ def audit(path: Path, cfg: dict, emit: Callable[[dict], None], *, sheet: str | N
                         if f['case']!='preserve' and text.strip()!=norm:
                             alert('CASE','Casse non canonique.',line,f,v,norm)
                         if not norm:raise ValueError('texte vide')
+                        if name in case_labels:
+                            key=norm.casefold();labels=case_labels[name]
+                            if key in labels and labels[key]!=norm:
+                                alert('CASE_VARIANT','Variantes de casse pour une même valeur dans cette extraction.',line,f,v,norm,labels[key])
+                            else:labels[key]=norm
                     if f['allowed_values'] is not None and raw_text(norm) not in f['allowed_values']:
                         alert('DOMAIN','Valeur hors référentiel autorisé.',line,f,v,norm,f['allowed_values'])
                     if f['pattern'] is not None and not re.fullmatch(f['pattern'],raw_text(norm),flags=re.ASCII):
                         alert('PATTERN','Format non conforme au référentiel.',line,f,v,norm,f['pattern'])
                     if f['identifier_format']=='isin' and not isin_valid(raw_text(norm)):
                         alert('ISIN','Structure ou chiffre de contrôle ISIN invalide.',line,f,v,norm,'ISIN / Luhn')
+                    elif f.get('auto_isin') and f['identifier_format'] is None and re.fullmatch(r'[A-Z]{2}[A-Z0-9]{10}',raw_text(norm),flags=re.ASCII) and not isin_valid(raw_text(norm)):
+                        alert('ISIN_CANDIDATE','Code de forme ISIN avec structure/clé invalide ; confirmer ISIN ou code interne.',line,f,v,norm,'ISIN / Luhn',severity='À analyser')
                     for key, code, bad in [('min_length','MIN_LENGTH',lambda n,t:n<t),('max_length','MAX_LENGTH',lambda n,t:n>t)]:
                         if f[key] is not None and bad(len(raw_text(norm)),f[key]):alert(code,'Longueur non conforme.',line,f,v,norm,f[key])
                     if f['kind']=='number':
@@ -440,6 +476,9 @@ def audit(path: Path, cfg: dict, emit: Callable[[dict], None], *, sheet: str | N
                             low=Decimal(str(f['minimum']))
                             if norm<low or (f['exclusive_minimum'] and norm==low):alert('MINIMUM','Borne inférieure non respectée.',line,f,v,norm,('> ' if f['exclusive_minimum'] else '>= ')+str(low))
                         if f['maximum'] is not None and norm>Decimal(str(f['maximum'])):alert('MAXIMUM','Borne supérieure non respectée.',line,f,v,norm,f['maximum'])
+                        convention=f.get('sign_convention')
+                        wrong_sign=(convention=='positive' and norm<=0) or (convention=='negative' and norm>=0) or (convention=='nonnegative' and norm<0) or (convention=='nonpositive' and norm>0)
+                        if wrong_sign:alert('SIGN_CONVENTION','Convention de signe non respectée.',line,f,v,norm,convention)
                         if (f['review_nonpositive'] and norm<=0) or (f['review_negative'] and norm<0):alert('REVIEW_SIGN','Signe atypique à analyser ; pas de rejet métier automatique.',line,f,v,norm,severity='À analyser')
                     if f['kind']=='date':
                         if f['date_min'] and norm<date.fromisoformat(f['date_min']):alert('DATE_MIN','Date antérieure à la borne.',line,f,v,norm,f['date_min'])
@@ -452,10 +491,11 @@ def audit(path: Path, cfg: dict, emit: Callable[[dict], None], *, sheet: str | N
                         seen.add(key)
                     normalized_row[name]=raw_text(norm)
                 except (ValueError, InvalidOperation, OverflowError) as exc:
-                    s['format_invalid']+=1
+                    s['type_invalid']+=1
                     normalized_row[name]=''
                     alert('FORMAT',str(exc),line,f,v)
             if sum(s['counts'].values())>cell_count: s['anomaly_cells']+=1
+            if sum(s['counts'][k] for k in format_codes)>format_before:s['format_invalid']+=1
         if emit_normalized is not None:emit_normalized(normalized_row)
     if rows==0:alert('EMPTY_INPUT','Aucune ligne de données ; aucun résultat de conformité validable.')
     summary=[]
@@ -466,11 +506,38 @@ def audit(path: Path, cfg: dict, emit: Callable[[dict], None], *, sheet: str | N
         if f['max_blank_rate'] is not None and s['blank_rate'] is not None and s['blank_rate']>f['max_blank_rate']:
             alert('BLANK_RATE','Taux de vide supérieur au seuil.',f=f,raw=s['blank_rate'],threshold=f['max_blank_rate'])
         s['status']='NON_EXECUTE' if not s['present'] or rows==0 else 'ANOMALIES' if s['counts'] else 'A_COMPLETER' if s['pending'] else 'CONFORME_CONTROLES_EXECUTES'
+        s['technical_status']='NON_EXECUTE' if not s['present'] or rows==0 else 'ANOMALIES' if sum(s['counts'].values())>s['review_alerts'] else 'REVUE' if s['review_alerts'] else 'OK_CONTROLES_EXECUTES'
+        s['reference_status']='A_PRECISER' if s['pending'] else 'PARAMETRES_DISPONIBLES'
         s['counts']=dict(s['counts']);summary.append(s)
+    review_results=[]
+    by_id={s['id']:s for s in summary}
+    unresolved_ids={p.get('id') for s in summary for p in s['pending']}
+    for f in fields:
+        for rule in f.get('rule_review',[]):
+            target=by_id[rule.get('target_field',f['id'])]
+            remaining=any(r in unresolved_ids for r in rule.get('requirement_ids',[]))
+            checks=list(rule.get('checks',[]))
+            for need in f['pending']:
+                if need.get('id') in rule.get('requirement_ids',[]):
+                    checks.extend(k for k in need.get('parameters',[]) if f[k] is not None and k not in checks)
+            tested=rows if set(checks) & {'required','completeness'} else target['filled']
+            state='DIFFERE' if rule['status']=='DIFFERE' else 'A_PRECISER' if remaining else 'NON_EXECUTE' if not target['present'] or not rows or not tested else 'REVUE_EXECUTEE' if rule['status']=='REVUE' else 'CONTROLE_EXECUTE'
+            if state in ('CONTROLE_EXECUTE','REVUE_EXECUTEE') and any(k not in target['rules'] for k in checks):
+                state='PARTIEL_PAR_CONFIGURATION' if any(k in target['rules'] for k in checks) else 'DESACTIVE_PAR_CONFIGURATION'
+            # Une dérogation clôt une attente sans prétendre que le contrôle a été exécuté.
+            requirement_ids=set(rule.get('requirement_ids',[]))
+            if requirement_ids and all(any(p.get('id')==rid and p.get('waiver') for p in f['pending']) for rid in requirement_ids):
+                state='NON_APPLICABLE_JUSTIFIE'
+            review_results.append({**rule,'checks':checks,'variable_id':f['id'],'variable':f['name'],'execution_status':state,'tested_values':tested if state in ('CONTROLE_EXECUTE','REVUE_EXECUTEE','PARTIEL_PAR_CONFIGURATION') else 0})
     return {'rows':rows,'empty_rows_skipped':empty_rows,'expected_variables':98,
             'present_variables':sum(s['present'] for s in summary),'checked_cells':checked_cells,
             'anomalies':sum(counts.values()),'schema_anomalies':schema_errors,
             'rules_counts':dict(counts),'pending_parameters':sum(len(s['pending']) for s in summary),
+            'pending_requirements':sum(len(s['pending']) for s in summary),
+            'review_alerts':review_alerts,'conformity_alerts':sum(counts.values())-review_alerts,
+            'reviewed_variables':sum(bool(f.get('rule_review')) for f in fields),
+            'source_rule_counts':dict(Counter(r['execution_status'] for r in review_results)),
+            'rule_review':review_results,
             'status':'NON_EXECUTE' if rows==0 else 'ANOMALIES' if counts else 'A_COMPLETER' if any(s['pending'] for s in summary) else 'CONFORME_CONTROLES_EXECUTES',
             'variables':summary}
 
