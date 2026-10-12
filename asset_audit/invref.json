@@ -1,0 +1,3956 @@
+{
+  "version": "invref-0.1.0",
+  "expected_field_count": 98,
+  "source": "Catalogue_controles_INVREF.xlsx, Catalogue variables, lignes 2 à 99 ; 2026-10-12",
+  "settings": {
+    "decimal_separator": ",",
+    "thousands_separator": " ",
+    "date_formats": [
+      "%Y%m%d",
+      "%Y-%m-%d"
+    ],
+    "excel_serial_dates": true,
+    "check_order": false,
+    "track_distinct": true
+  },
+  "fields": [
+    {
+      "id": "V001",
+      "name": "Date de valorisation",
+      "kind": "date",
+      "severity": "Critique",
+      "required": true,
+      "source_quality": "Obligatoire; date valide; une seule date par extraction sauf justification; cohérente avec le nom du fichier et la date de lancement.",
+      "source_coherence": "≥ Date de cotation et PRICEDATE; ≤ date d’échéance pour une position non échue; cohérente avec Date Lancement Inventaire.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": 1,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "date_min",
+          "reason": "Début de plage calendaire plausible non fourni."
+        },
+        {
+          "parameter": "date_max",
+          "reason": "Fin de plage calendaire plausible non fournie ; comparaison à la valorisation différée."
+        }
+      ],
+      "deferred": [
+        "Nom du fichier / date de lancement ; justification de plusieurs dates."
+      ]
+    },
+    {
+      "id": "V002",
+      "name": "Type de stock",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Compatible avec Type inventaire, Statut de la ligne et périmètre du portefeuille.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V003",
+      "name": "Code Portefeuille",
+      "kind": "identifier",
+      "severity": "Critique",
+      "required": null,
+      "source_quality": "Non vide si requis; Suppression des espaces parasites; Format et longueur conformes au référentiel",
+      "source_coherence": "Correspondance 1 vers 1 ou référencée avec Libellé court Portefeuille, Devise portefeuille et périmètre comptable.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        },
+        {
+          "parameter": "pattern",
+          "reason": "Format identifiant interne non fourni."
+        },
+        {
+          "parameter": "min_length",
+          "reason": "Longueur minimale non fournie."
+        },
+        {
+          "parameter": "max_length",
+          "reason": "Longueur maximale non fournie."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V004",
+      "name": "Libellé court Portefeuille",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Même libellé pour un même Code Portefeuille à date identique.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V005",
+      "name": "Catégorie Valeur",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Compatible avec Security type/group, Type de valeur et familles d’actifs.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V006",
+      "name": "Code Valeur",
+      "kind": "identifier",
+      "severity": "Critique",
+      "required": true,
+      "source_quality": "Obligatoire; format identifiant reconnu (ex. ISIN sur 12 caractères lorsqu’applicable); pas de caractères parasites.",
+      "source_coherence": "Même instrument = caractéristiques stables: libellé, devise, nominal, échéance, émetteur et classification.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        },
+        {
+          "parameter": "pattern",
+          "reason": "Format identifiant interne non fourni."
+        },
+        {
+          "parameter": "min_length",
+          "reason": "Longueur minimale non fournie."
+        },
+        {
+          "parameter": "max_length",
+          "reason": "Longueur maximale non fournie."
+        },
+        {
+          "parameter": "identifier_format",
+          "reason": "ISIN uniquement lorsque applicable ; choix du périmètre non fourni."
+        }
+      ],
+      "deferred": [
+        "Détermination des instruments soumis au format ISIN."
+      ]
+    },
+    {
+      "id": "V007",
+      "name": "Libellé Valeur",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Cohérent avec Code Valeur; les éléments de coupon/échéance du libellé peuvent être rapprochés des champs structurés.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V008",
+      "name": "Compound code",
+      "kind": "identifier",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Non vide si requis; Suppression des espaces parasites; Format et longueur conformes au référentiel",
+      "source_coherence": "Cohérent avec Code Valeur et Numéro de transaction interne lorsque renseigné.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        },
+        {
+          "parameter": "pattern",
+          "reason": "Format identifiant interne non fourni."
+        },
+        {
+          "parameter": "min_length",
+          "reason": "Longueur minimale non fournie."
+        },
+        {
+          "parameter": "max_length",
+          "reason": "Longueur maximale non fournie."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V009",
+      "name": "Statut de la ligne",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Compatible avec Type inventaire, quantité et méthode de comptabilisation.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V010",
+      "name": "Intention de gestion",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Compatible avec Méthode de comptabilisation, classement et typologie de portefeuille.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V011",
+      "name": "Quantité",
+      "kind": "number",
+      "severity": "Critique",
+      "required": null,
+      "source_quality": "Numérique; unité compatible avec le mode d’expression; zéro ou négatif uniquement si le type de position l’autorise.",
+      "source_coherence": "Valeur boursière ≈ Quantité × cours × nominal × coefficient d’index × change selon conventions.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": [
+        "Unité et autorisation des quantités nulles/négatives par type de position."
+      ]
+    },
+    {
+      "id": "V012",
+      "name": "Mode Expression Quantité",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Détermine la formule de valorisation et l’unité de Quantité/Nominal.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V013",
+      "name": "Valeur d'acqu Brute",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Numérique; devise et signe cohérents; valeurs extrêmes revues.",
+      "source_coherence": "Valeur d’acquisition nette ≈ valeur brute +/− dépréciation selon convention; rapprochement avec PRU et quantité.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": [
+        "Devise et convention de signe."
+      ]
+    },
+    {
+      "id": "V014",
+      "name": "Dépréciation / Impairment",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Numérique; signe conforme à la convention; ne doit pas augmenter la valeur nette si comptabilisée en réduction.",
+      "source_coherence": "Rapprochement avec valeur nette, Dotation Reprise et Provision Estimée.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": [
+        "Convention de signe et effet sur la valeur nette."
+      ]
+    },
+    {
+      "id": "V015",
+      "name": "Valeur d'acqu Nette de dépréciation",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "≈ Valeur d’acquisition brute diminuée de la dépréciation selon convention.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V016",
+      "name": "Valeur boursière",
+      "kind": "number",
+      "severity": "Critique",
+      "required": null,
+      "source_quality": "Numérique; valeur nulle ou négative investiguée; cohérente avec quantité, cours, nominal et change.",
+      "source_coherence": "Rapprochement avec quantité, cours, nominal, indexation et change; base des plus/moins-values.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": true,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": [
+        "Recalcul de valorisation."
+      ]
+    },
+    {
+      "id": "V017",
+      "name": "Coupon couru",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Compatible avec coupon, nominal, quantité, calendrier; égal à zéro pour instruments sans coupon sauf exception.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V018",
+      "name": "Indicateur forçage coupon couru",
+      "kind": "indicator",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant à la liste de codes autorisés; Libellé associé présent et cohérent",
+      "source_coherence": "Si actif, justification et traçabilité attendues; Coupon couru potentiellement différent du calcul standard.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": [
+        "Présence et cohérence du libellé associé."
+      ]
+    },
+    {
+      "id": "V019",
+      "name": "Coupon couru à l'achat",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Compatible avec date d’achat/lot et valeur d’acquisition; ne doit pas être confondu avec coupon couru courant.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V020",
+      "name": "Intérêts Perçus d'Avance",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Cohérents avec type d’instrument et méthode comptable.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V021",
+      "name": "Valeur Acquisition Amortie",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Cohérente avec valeur d’acquisition, amortissements et prime/décote restante.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V022",
+      "name": "Cours Amorti Unitaire",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Valeur Acquisition Amortie ≈ quantité × cours amorti × nominal/unité selon convention.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V023",
+      "name": "Prix de Revient Unitaire",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Valeur d’acquisition brute ≈ quantité × PRU × nominal/unité selon convention.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V024",
+      "name": "Cours de la valeur",
+      "kind": "number",
+      "severity": "Critique",
+      "required": null,
+      "source_quality": "Numérique; borne plausible selon le mode d’expression; forçage documenté.",
+      "source_coherence": "Valeur boursière ≈ quantité × cours × nominal × indexation × change.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": [
+        "Mode expression du cours et justification du forçage."
+      ]
+    },
+    {
+      "id": "V025",
+      "name": "Date de  Cotation",
+      "kind": "date",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Date valide; non postérieure à la date de valorisation; ancienneté du prix calculée et alertée.",
+      "source_coherence": "≤ Date de valorisation; rapprochement avec PRICEDATE et source de prix.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "date_min",
+          "reason": "Début de plage calendaire plausible non fourni."
+        },
+        {
+          "parameter": "date_max",
+          "reason": "Fin de plage calendaire plausible non fournie ; comparaison à la valorisation différée."
+        }
+      ],
+      "deferred": [
+        "Date de valorisation / ancienneté du prix."
+      ]
+    },
+    {
+      "id": "V026",
+      "name": "Mode d'Expression Cours",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Détermine l’échelle du cours et la formule de valorisation.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V027",
+      "name": "Indicateur forçage cours",
+      "kind": "indicator",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant à la liste de codes autorisés; Libellé associé présent et cohérent",
+      "source_coherence": "Si actif, PRICEINFO/source spécifique et piste d’audit attendus.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": [
+        "Présence et cohérence du libellé associé."
+      ]
+    },
+    {
+      "id": "V028",
+      "name": "Plus ou moins values latentes brute",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "≈ Valeur boursière + coupon éventuel − valeur d’acquisition brute, selon convention.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V029",
+      "name": "Plus ou moins values latentes nette",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "≈ Valeur boursière + coupon éventuel − valeur d’acquisition nette, selon convention.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V030",
+      "name": "Date Fiscale",
+      "kind": "date",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Format date valide; Date plausible et non future par rapport à la date de valorisation sauf échéance/call",
+      "source_coherence": "Compatible avec date de valorisation et événements fiscaux applicables.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "date_min",
+          "reason": "Début de plage calendaire plausible non fourni."
+        },
+        {
+          "parameter": "date_max",
+          "reason": "Fin de plage calendaire plausible non fournie ; comparaison à la valorisation différée."
+        }
+      ],
+      "deferred": [
+        "Comparaison avec la date de valorisation."
+      ]
+    },
+    {
+      "id": "V031",
+      "name": "Plus ou Moins value latente Change",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Avec P/MV Titre, explique la P/MV globale selon méthode de décomposition.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V032",
+      "name": "Plus ou Moins value latente Titre",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Avec P/MV Change, explique la P/MV globale selon méthode de décomposition.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V033",
+      "name": "Valeur de rembour non indexée",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Compatible avec nominal, quantité et modalités de remboursement.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V034",
+      "name": "Valeur de rembour index inflation",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Compatible avec valeur non indexée et coefficient d’index à la date de valorisation.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V035",
+      "name": "Valeur de rembour index achat",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Compatible avec valeur non indexée et coefficient d’index à l’achat.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V036",
+      "name": "Coefficient d'index à date d'achat",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Positif; utilisé dans la valeur de remboursement indexée à l’achat.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V037",
+      "name": "Coefficient d'index à date de valo",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Positif; utilisé dans la valeur de remboursement indexée à la date de valorisation.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V038",
+      "name": "Taux actuariel achat-Daily Coupon",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Compatible avec prix d’achat, coupon, échéance et flux contractuels.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V039",
+      "name": "Taux actuariel à l'achat",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Compatible avec prix d’achat, coupon, échéance et flux contractuels.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V040",
+      "name": "Prime décote globale initiale",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Explique l’écart initial entre valeur d’acquisition et remboursement selon méthode.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V041",
+      "name": "Amortissement positif",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Composante de l’amortissement global; signe et cumul cohérents.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V042",
+      "name": "Amortissement négatif",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Composante de l’amortissement global; signe et cumul cohérents.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V043",
+      "name": "Amortissement global",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "≈ somme des composantes positive/négative et, selon modèle, indexation.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V044",
+      "name": "Part prime décote indexation",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Compatible avec instruments indexés et coefficients d’index.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V045",
+      "name": "Prime décote globale restante",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "≈ prime/décote initiale diminuée des amortissements cumulés.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V046",
+      "name": "Indicateur forçage valeur actuelle",
+      "kind": "indicator",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant à la liste de codes autorisés; Libellé associé présent et cohérent",
+      "source_coherence": "Si actif, justification et différence au calcul standard documentées.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": [
+        "Présence et cohérence du libellé associé."
+      ]
+    },
+    {
+      "id": "V047",
+      "name": "Taux de rendement à la date de call",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Renseigné seulement si call pertinent; cohérent avec Prochaine date de call.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V048",
+      "name": "Taux de rendement",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Compatible avec cours, coupon, remboursement et échéance.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V049",
+      "name": "Vie moyenne",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "≤ maturité résiduelle sauf particularité; cohérente avec amortissement/call.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V050",
+      "name": "Duration",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Numérique; généralement positive; valeurs atypiques ou supérieures à la maturité résiduelle revues.",
+      "source_coherence": "≤ vie moyenne ou proche selon définition; cohérente avec sensibilité, taux et échéance.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": true,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": [
+        "Comparaison avec la maturité résiduelle."
+      ]
+    },
+    {
+      "id": "V051",
+      "name": "Sensibilité",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Numérique; convention de signe documentée; rapprochement avec la duration.",
+      "source_coherence": "Relation attendue avec duration selon convention et niveau de rendement.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": [
+        "Convention de signe et rapprochement avec duration."
+      ]
+    },
+    {
+      "id": "V052",
+      "name": "Convexité",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Numérique; valeurs négatives ou extrêmes analysées selon le type d’instrument.",
+      "source_coherence": "Cohérente avec duration et optionalité; valeur atypique pour dérivés incorporés à investiguer.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": true,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": [
+        "Analyse selon le type instrument."
+      ]
+    },
+    {
+      "id": "V053",
+      "name": "Code Emetteur",
+      "kind": "identifier",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Non vide si requis; Suppression des espaces parasites; Format et longueur conformes au référentiel",
+      "source_coherence": "Correspondance avec libellé, pays, secteur, ancien code et groupe de concentration.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        },
+        {
+          "parameter": "pattern",
+          "reason": "Format identifiant interne non fourni."
+        },
+        {
+          "parameter": "min_length",
+          "reason": "Longueur minimale non fournie."
+        },
+        {
+          "parameter": "max_length",
+          "reason": "Longueur maximale non fournie."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V054",
+      "name": "Libellé Code Emetteur",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Stable pour un Code Emetteur à date identique.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V055",
+      "name": "Code pays de l'Emetteur",
+      "kind": "identifier",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Code pays conforme au référentiel retenu; non vide lorsque l’émetteur est identifié.",
+      "source_coherence": "Stable pour l’émetteur sauf justification; conforme au référentiel pays.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        },
+        {
+          "parameter": "pattern",
+          "reason": "Format identifiant interne non fourni."
+        },
+        {
+          "parameter": "min_length",
+          "reason": "Longueur minimale non fournie."
+        },
+        {
+          "parameter": "max_length",
+          "reason": "Longueur maximale non fournie."
+        }
+      ],
+      "deferred": [
+        "Obligation selon présence émetteur."
+      ]
+    },
+    {
+      "id": "V056",
+      "name": "Nominal de la valeur unitaire",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Positif; cohérent avec Quantité, mode d’expression et valeurs de remboursement.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V057",
+      "name": "Devise de gestion",
+      "kind": "text",
+      "severity": "Critique",
+      "required": true,
+      "source_quality": "Code devise standard; non vide.",
+      "source_coherence": "Avec Devise portefeuille, pilote Type de Devise, change et P/MV de change.",
+      "allowed_values": null,
+      "pattern": "[A-Z]{3}",
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "upper",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V058",
+      "name": "Devise portefeuille",
+      "kind": "text",
+      "severity": "Critique",
+      "required": true,
+      "source_quality": "Code devise standard; non vide.",
+      "source_coherence": "Avec Devise de gestion, pilote Type de Devise et parité.",
+      "allowed_values": null,
+      "pattern": "[A-Z]{3}",
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "upper",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V059",
+      "name": "Type de Devise",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Compatible avec égalité/différence entre devise de gestion et devise portefeuille.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V060",
+      "name": "Type inventaire",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Compatible avec type de stock, statut et traitement comptable.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V061",
+      "name": "Change de valo entre PC et QC",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Cohérent avec Parité de change et convention de conversion.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V062",
+      "name": "Parité de change",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Numérique strictement positive; égale à 1 lorsque les devises sont identiques selon convention.",
+      "source_coherence": "Si devises identiques, attendue à 1 selon convention; sinon positive et source/date pertinentes.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": "0",
+      "maximum": null,
+      "exclusive_minimum": true,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": [
+        "Parité égale à 1 selon devises et convention."
+      ]
+    },
+    {
+      "id": "V063",
+      "name": "Date d'échéance",
+      "kind": "date",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Date valide; requise pour les instruments à échéance; date passée expliquée si position toujours présente.",
+      "source_coherence": "≥ Date de valorisation pour titre vivant; cohérente avec vie moyenne/duration et libellé.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "date_min",
+          "reason": "Début de plage calendaire plausible non fourni."
+        },
+        {
+          "parameter": "date_max",
+          "reason": "Fin de plage calendaire plausible non fournie ; comparaison à la valorisation différée."
+        }
+      ],
+      "deferred": [
+        "Obligation selon instrument / justification des positions échues."
+      ]
+    },
+    {
+      "id": "V064",
+      "name": "Existence d'un Put/Call",
+      "kind": "indicator",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Code contrôlé; domaine fermé; obligatoire pour instruments concernés.",
+      "source_coherence": "Si oui, Prochaine date de call et éventuellement rendement au call doivent être renseignés.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": [
+        "Obligation selon instrument."
+      ]
+    },
+    {
+      "id": "V065",
+      "name": "Prochaine date de call",
+      "kind": "date",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Date valide; requise si un call existe; postérieure ou égale à la date de valorisation.",
+      "source_coherence": "≥ date de valorisation et ≤ date d’échéance; requise si call présent.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "date_min",
+          "reason": "Début de plage calendaire plausible non fourni."
+        },
+        {
+          "parameter": "date_max",
+          "reason": "Fin de plage calendaire plausible non fournie ; comparaison à la valorisation différée."
+        }
+      ],
+      "deferred": [
+        "Obligation selon existence call et comparaison valorisation."
+      ]
+    },
+    {
+      "id": "V066",
+      "name": "Security type",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Compatible avec Security group, Type de valeur et familles d’actifs.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V067",
+      "name": "Security group",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Niveau agrégé cohérent avec Security type et catégorie de valeur.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V068",
+      "name": "Type de valeur",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Correspondance avec libellé du type et familles d’actifs.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V069",
+      "name": "Libellé Type de valeur",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Correspondance stable avec Type de valeur.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V070",
+      "name": "Code Famille d'Actif Simplifiée",
+      "kind": "identifier",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Non vide si requis; Suppression des espaces parasites; Format et longueur conformes au référentiel",
+      "source_coherence": "Correspondance stable avec son libellé et la famille complète.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        },
+        {
+          "parameter": "pattern",
+          "reason": "Format identifiant interne non fourni."
+        },
+        {
+          "parameter": "min_length",
+          "reason": "Longueur minimale non fournie."
+        },
+        {
+          "parameter": "max_length",
+          "reason": "Longueur maximale non fournie."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V071",
+      "name": "Libellé Famille d'Actif Simplifiée",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Correspondance stable avec son code.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V072",
+      "name": "Code Famille d'Actif Complète",
+      "kind": "identifier",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Non vide si requis; Suppression des espaces parasites; Format et longueur conformes au référentiel",
+      "source_coherence": "Rattachée à une seule famille simplifiée selon référentiel.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        },
+        {
+          "parameter": "pattern",
+          "reason": "Format identifiant interne non fourni."
+        },
+        {
+          "parameter": "min_length",
+          "reason": "Longueur minimale non fournie."
+        },
+        {
+          "parameter": "max_length",
+          "reason": "Longueur maximale non fournie."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V073",
+      "name": "Libellé Famille d'Actif Complète",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Correspondance stable avec son code.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V074",
+      "name": "Indicateur dérivé Incorporé",
+      "kind": "indicator",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Code contrôlé; libellé associé obligatoire; cohérent avec le type de titre.",
+      "source_coherence": "Compatible avec libellé associé, Security type et caractéristiques optionnelles.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": [
+        "Libellé associé / type titre."
+      ]
+    },
+    {
+      "id": "V075",
+      "name": "Libellé Indicateur dérivé Incorporé",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Correspondance stable avec l’indicateur.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V076",
+      "name": "Méthode de comptabilisation",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Compatible avec intention de gestion, type de valeur et valeurs comptables.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V077",
+      "name": "Classement Euro Performance",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Compatible avec type de valeur, méthode comptable et portefeuille.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V078",
+      "name": "Code secteur économique",
+      "kind": "identifier",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Non vide si requis; Suppression des espaces parasites; Format et longueur conformes au référentiel",
+      "source_coherence": "Correspondance stable avec libellé secteur et émetteur.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        },
+        {
+          "parameter": "pattern",
+          "reason": "Format identifiant interne non fourni."
+        },
+        {
+          "parameter": "min_length",
+          "reason": "Longueur minimale non fournie."
+        },
+        {
+          "parameter": "max_length",
+          "reason": "Longueur maximale non fournie."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V079",
+      "name": "Libellé court secteur économique",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Correspondance stable avec Code secteur économique.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V080",
+      "name": "Numéro de transaction interne",
+      "kind": "identifier",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Format stable; unicité appréciée avec portefeuille/titre/lot, pas nécessairement seul.",
+      "source_coherence": "Avec portefeuille, code valeur et clé FIFO, identifie le lot/transaction sans doublon injustifié.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        },
+        {
+          "parameter": "pattern",
+          "reason": "Format identifiant interne non fourni."
+        },
+        {
+          "parameter": "min_length",
+          "reason": "Longueur minimale non fournie."
+        },
+        {
+          "parameter": "max_length",
+          "reason": "Longueur maximale non fournie."
+        }
+      ],
+      "deferred": [
+        "Unicité composite portefeuille/titre/lot."
+      ]
+    },
+    {
+      "id": "V081",
+      "name": "Référence externe",
+      "kind": "identifier",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Non vide si requis; Suppression des espaces parasites; Format et longueur conformes au référentiel",
+      "source_coherence": "Rapprochable au système source et cohérente avec le titre/transaction.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        },
+        {
+          "parameter": "pattern",
+          "reason": "Format identifiant interne non fourni."
+        },
+        {
+          "parameter": "min_length",
+          "reason": "Longueur minimale non fournie."
+        },
+        {
+          "parameter": "max_length",
+          "reason": "Longueur maximale non fournie."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V082",
+      "name": "Numéro de compte de placement",
+      "kind": "identifier",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Non vide si requis; Suppression des espaces parasites; Format et longueur conformes au référentiel",
+      "source_coherence": "Correspondance stable avec libellé de compte et méthode comptable.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        },
+        {
+          "parameter": "pattern",
+          "reason": "Format identifiant interne non fourni."
+        },
+        {
+          "parameter": "min_length",
+          "reason": "Longueur minimale non fournie."
+        },
+        {
+          "parameter": "max_length",
+          "reason": "Longueur maximale non fournie."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V083",
+      "name": "Libellé Num de compte de placement",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Correspondance stable avec numéro de compte.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V084",
+      "name": "Tri T2",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Compatible avec classification réglementaire/interne documentée.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V085",
+      "name": "Engagement de détention",
+      "kind": "indicator",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant à la liste de codes autorisés; Libellé associé présent et cohérent",
+      "source_coherence": "Si oui, Date de fin d’engagement et Référence contrat attendues.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": [
+        "Présence et cohérence du libellé associé."
+      ]
+    },
+    {
+      "id": "V086",
+      "name": "Valeur de recouvrement unitaire",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Compatible avec nominal, provisions, impairment et statut de crédit.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V087",
+      "name": "Date de fin d'engagement",
+      "kind": "date",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Format date valide; Date plausible et non future par rapport à la date de valorisation sauf échéance/call",
+      "source_coherence": "Requise si engagement de détention; postérieure au début/date de valorisation selon cas.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "date_min",
+          "reason": "Début de plage calendaire plausible non fourni."
+        },
+        {
+          "parameter": "date_max",
+          "reason": "Fin de plage calendaire plausible non fournie ; comparaison à la valorisation différée."
+        }
+      ],
+      "deferred": [
+        "Comparaison avec la valorisation."
+      ]
+    },
+    {
+      "id": "V088",
+      "name": "Référence contrat",
+      "kind": "identifier",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Non vide si requis; Suppression des espaces parasites; Format et longueur conformes au référentiel",
+      "source_coherence": "Requise lorsque la position est liée à un engagement/contrat.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        },
+        {
+          "parameter": "pattern",
+          "reason": "Format identifiant interne non fourni."
+        },
+        {
+          "parameter": "min_length",
+          "reason": "Longueur minimale non fournie."
+        },
+        {
+          "parameter": "max_length",
+          "reason": "Longueur maximale non fournie."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V089",
+      "name": "Valeur bilan nette comptable",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Rapprochement avec valeur d’acquisition amortie, provisions, dépréciations et comptes.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V090",
+      "name": "Dotation Reprise",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Explique l’évolution de la provision entre deux arrêtés.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V091",
+      "name": "Provision Estimée",
+      "kind": "number",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur numérique exploitable; Absence de NaN/infini et séparateurs non numériques; Contrôle des bornes et des valeurs extrêmes",
+      "source_coherence": "Compatible avec dépréciation, valeur de recouvrement et VNC.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "minimum",
+          "reason": "Borne métier / convention de signe à confirmer."
+        },
+        {
+          "parameter": "maximum",
+          "reason": "Borne supérieure et seuil de valeur extrême non fournis."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V092",
+      "name": "Code Emetteur Old",
+      "kind": "identifier",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Non vide si requis; Suppression des espaces parasites; Format et longueur conformes au référentiel",
+      "source_coherence": "Table de correspondance vers Code Emetteur actuel; absence de collisions non justifiées.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        },
+        {
+          "parameter": "pattern",
+          "reason": "Format identifiant interne non fourni."
+        },
+        {
+          "parameter": "min_length",
+          "reason": "Longueur minimale non fournie."
+        },
+        {
+          "parameter": "max_length",
+          "reason": "Longueur maximale non fournie."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V093",
+      "name": "Date Lancement Inventaire",
+      "kind": "date",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Format date valide; Date plausible et non future par rapport à la date de valorisation sauf échéance/call",
+      "source_coherence": "≥ date de valorisation et cohérente avec l’horodatage du traitement.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "date_min",
+          "reason": "Début de plage calendaire plausible non fourni."
+        },
+        {
+          "parameter": "date_max",
+          "reason": "Fin de plage calendaire plausible non fournie ; comparaison à la valorisation différée."
+        }
+      ],
+      "deferred": [
+        "Comparaison avec la valorisation."
+      ]
+    },
+    {
+      "id": "V094",
+      "name": "Clé FIFO",
+      "kind": "identifier",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Non vide si le suivi par lot est attendu; stabilité et unicité contrôlées dans son périmètre.",
+      "source_coherence": "Avec portefeuille/titre, identifie le lot; absence de doublons exacts non expliqués.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        },
+        {
+          "parameter": "pattern",
+          "reason": "Format identifiant interne non fourni."
+        },
+        {
+          "parameter": "min_length",
+          "reason": "Longueur minimale non fournie."
+        },
+        {
+          "parameter": "max_length",
+          "reason": "Longueur maximale non fournie."
+        }
+      ],
+      "deferred": [
+        "Suivi lot, stabilité temporelle et unicité dans son périmètre."
+      ]
+    },
+    {
+      "id": "V095",
+      "name": "PRICEDATE",
+      "kind": "date",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Date valide; non postérieure à la date de valorisation; ancienneté suivie.",
+      "source_coherence": "≤ Date de valorisation; cohérente avec Date de cotation.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "date_min",
+          "reason": "Début de plage calendaire plausible non fourni."
+        },
+        {
+          "parameter": "date_max",
+          "reason": "Fin de plage calendaire plausible non fournie ; comparaison à la valorisation différée."
+        }
+      ],
+      "deferred": [
+        "Comparaison valorisation et ancienneté."
+      ]
+    },
+    {
+      "id": "V096",
+      "name": "DATASOURCE",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Valeur appartenant au référentiel autorisé; Absence d’espaces parasites et de variantes de casse; Taux de valeurs non renseignées suivi",
+      "source_coherence": "Source autorisée; cohérente avec PRICESOURCE et le système producteur.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": []
+    },
+    {
+      "id": "V097",
+      "name": "PRICESOURCE",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Source présente pour toute position valorisée; valeur issue d’une liste autorisée.",
+      "source_coherence": "Requise quand Cours de la valeur est renseigné; cohérente avec PRICEDATE et forçage.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": [
+        "Obligation pour position valorisée."
+      ]
+    },
+    {
+      "id": "V098",
+      "name": "PRICEINFO",
+      "kind": "text",
+      "severity": "Élevée",
+      "required": null,
+      "source_quality": "Information de prix présente lorsqu’un forçage ou une méthode spécifique est utilisé.",
+      "source_coherence": "Détail cohérent avec source, méthode, date et éventuel forçage du prix.",
+      "allowed_values": null,
+      "pattern": null,
+      "min_length": null,
+      "max_length": null,
+      "minimum": null,
+      "maximum": null,
+      "exclusive_minimum": false,
+      "date_min": null,
+      "date_max": null,
+      "unique": false,
+      "max_distinct": null,
+      "max_blank_rate": null,
+      "case": "preserve",
+      "identifier_format": null,
+      "review_nonpositive": false,
+      "review_negative": false,
+      "pending": [
+        {
+          "parameter": "required",
+          "reason": "Obligatoriété non précisée ou conditionnelle ; validation métier nécessaire."
+        },
+        {
+          "parameter": "allowed_values",
+          "reason": "Référentiel autorisé non fourni."
+        }
+      ],
+      "deferred": [
+        "Obligation selon forçage ou méthode."
+      ]
+    }
+  ]
+}
