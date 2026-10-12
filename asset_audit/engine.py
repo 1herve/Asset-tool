@@ -14,6 +14,12 @@ from pathlib import Path
 from typing import Any, Callable
 
 
+# ============================================================
+# 2. EXCEPTIONS PERSONNALISÉES
+# ============================================================
+# Ces erreurs permettent de distinguer :
+# - une mauvaise configuration du référentiel INVREF ;
+# - un problème dans le fichier de données fourni.
 class ConfigurationError(ValueError):
     """Un référentiel incohérent ne peut pas être exécuté."""
 
@@ -22,6 +28,11 @@ class InputError(ValueError):
     """Erreur d'import explicite ; jamais convertie en fichier conforme."""
 
 
+# ============================================================
+# 3. FONCTIONS UTILITAIRES DE BASE
+# ============================================================
+# raw_text : transforme une valeur en texte de manière sûre.
+# blank    : détermine si une cellule est réellement vide.
 def raw_text(value: Any) -> str:
     if value is None:
         return ''
@@ -35,6 +46,17 @@ def blank(value: Any) -> bool:
     return value is None or (isinstance(value, str) and not value.strip())
 
 
+
+# ============================================================
+# 4. CONTRÔLE ET NORMALISATION DES NOMBRES
+# ============================================================
+# Cette fonction vérifie qu'une valeur est bien numérique.
+# Elle contrôle notamment :
+# - le séparateur décimal ;
+# - le séparateur de milliers ;
+# - les valeurs NaN / infini ;
+# - les formats numériques incorrects.
+# Elle renvoie un Decimal afin d'éviter les imprécisions des float.
 def number(value: Any, settings: dict) -> Decimal:
     """Décimal fini, séparateurs explicitement configurés, groupement vérifié."""
     if isinstance(value, bool):
@@ -64,6 +86,12 @@ def number(value: Any, settings: dict) -> Decimal:
     return result
 
 
+# ============================================================
+# 5. CONTRÔLE ET NORMALISATION DES DATES
+# ============================================================
+# Cette fonction vérifie qu'une date est valide.
+# Elle accepte uniquement les formats définis dans la configuration.
+# Elle sait également traiter les dates Excel lorsque cela est autorisé.
 def parse_date(value: Any, settings: dict, epoch: Any = None) -> date:
     """Dates calendaires strictes ; numéro Excel seulement pour une cellule numérique."""
     if isinstance(value, datetime):
@@ -106,7 +134,13 @@ def parse_date(value: Any, settings: dict, epoch: Any = None) -> date:
             continue
     raise ValueError('format ou jour calendaire invalide')
 
-
+# ============================================================
+# 6. CONTRÔLE DES IDENTIFIANTS ISIN
+# ============================================================
+# Vérifie :
+# - la structure d'un code ISIN ;
+# - sa longueur ;
+# - son chiffre de contrôle grâce à l'algorithme de Luhn.
 def isin_valid(value: str) -> bool:
     """Structure ISIN et chiffre de contrôle Luhn, seulement si explicitement activé."""
     if not re.fullmatch(r'[A-Z]{2}[A-Z0-9]{9}[0-9]', value, flags=re.ASCII):
@@ -118,7 +152,11 @@ def isin_valid(value: str) -> bool:
         total += n // 10 + n % 10
     return total % 10 == 0
 
-
+# ============================================================
+# 7. CHARGEMENT DU RÉFÉRENTIEL DE CONTRÔLE
+# ============================================================
+# Charge le fichier invref.json contenant les règles des 98 variables.
+# La configuration est ensuite validée avant utilisation.
 def load_config(path: Path | None = None) -> dict:
     config_path = path or Path(__file__).with_name('invref.json')
     try:
@@ -128,7 +166,9 @@ def load_config(path: Path | None = None) -> dict:
         raise ConfigurationError(f'Référentiel invalide : {exc}') from exc
     return cfg
 
-
+# ============================================================
+# 8. VALIDATION DE LA CONFIGURATION
+# ============================================================
 def validate_config(cfg: dict) -> None:
     fields = cfg['fields']
     if len(fields) != cfg['expected_field_count'] or len(fields) != 98:
@@ -199,7 +239,16 @@ def validate_config(cfg: dict) -> None:
         if f['max_blank_rate'] is not None and not 0 <= float(f['max_blank_rate']) <= 1:
             raise ConfigurationError('Seuil de vide hors [0,1]')
 
-
+# ============================================================
+# 9. LECTURE DES FICHIERS D'ENTRÉE CSV / EXCEL
+# ============================================================
+# Lit les données sans les modifier.
+# Cette fonction :
+# - accepte les fichiers .csv et .xlsx ;
+# - récupère les en-têtes ;
+# - conserve le numéro de ligne d'origine ;
+# - détecte les formules Excel ;
+# - gère les onglets et les lignes d'en-tête décalées.
 def input_rows(path: Path, sheet: str | None, header_row: int, delimiter: str, encoding: str):
     """Conserve les en-têtes dupliqués et les lignes physiques (CSV multiligne inclus)."""
     if header_row < 1:
@@ -246,11 +295,20 @@ def input_rows(path: Path, sheet: str | None, header_row: int, delimiter: str, e
     else:
         raise InputError('Formats pris en charge : .csv et .xlsx')
 
-
+# ============================================================
+# 10. PARAMÈTRES MÉTIER EN ATTENTE
+# ============================================================
+# Retourne les paramètres qui ne sont pas encore renseignés
+# dans le référentiel pour une variable donnée.
+# Exemple : borne min/max, domaine autorisé, format, etc.
 def pending_parameters(f: dict) -> list[dict]:
     return [p for p in f['pending'] if f[p['parameter']] is None]
 
-
+# ============================================================
+# 11. LISTE DES CONTRÔLES ACTIFS POUR UNE VARIABLE
+# ============================================================
+# Détermine quels contrôles doivent être exécutés selon
+# les paramètres renseignés dans invref.json.
 def active_checks(f: dict, settings: dict) -> list[str]:
     checks = ['column','completeness','format','whitespace','control_characters']
     for key in ('allowed_values','pattern','min_length','max_length','minimum','maximum','date_min','date_max','max_distinct','max_blank_rate','identifier_format'):
@@ -263,7 +321,21 @@ def active_checks(f: dict, settings: dict) -> list[str]:
         raise ConfigurationError('track_distinct doit être true pour les contrôles d’unicité')
     return checks
 
-
+# ============================================================
+# 12. MOTEUR PRINCIPAL D'AUDIT QDD
+# ============================================================
+# C'est la fonction centrale du programme.
+#
+# Elle réalise notamment :
+# 1. la validation de la configuration ;
+# 2. le contrôle du schéma (98 colonnes attendues) ;
+# 3. les contrôles d'exhaustivité ;
+# 4. les contrôles de conformité ;
+# 5. la normalisation des valeurs ;
+# 6. la collecte des anomalies ;
+# 7. le calcul des statistiques par variable ;
+# 8. la production d'une synthèse finale.
+#
 def audit(path: Path, cfg: dict, emit: Callable[[dict], None], *, sheet: str | None=None,
           header_row: int=1, delimiter: str=';', encoding: str='utf-8-sig',
           emit_normalized: Callable[[dict], None] | None=None) -> dict:
