@@ -48,7 +48,7 @@ class AuditTests(unittest.TestCase):
         for i,f in enumerate(self.cfg['fields']):
             with self.subTest(variable=f['name']):
                 row=valid_row(self.cfg)
-                row[i]='20260230' if f['kind']=='date' else 'NaN' if f['kind']=='number' else 'code\x00parasite'
+                row[i]='20260230' if f['kind']=='date' else 'NaN' if f['kind']=='number' else 'code\x01parasite'
                 result,alerts,_=self.run_audit([row])
                 self.assertTrue(any(a['field']==f['name'] for a in alerts))
                 self.assertEqual(result['variables'][i]['anomaly_cells'],1)

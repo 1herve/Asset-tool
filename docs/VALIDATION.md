@@ -46,3 +46,5 @@ Empreintes des sources analysées :
 
 - `Catalogue_controles_INVREF.xlsx` : `fcce001d5faa1af3eb1f71bcaa7445a483f4da1bff2b1014a2410ecf1899ddd0`.
 - `125 - Asset Database Audit Tool.pdf` : `59e2eae2cf328ad88fba546dc32be62ff3ac7b9dd38be49c9ea31fb2fc267105`.
+
+Sous Python 3.10, un CSV contenant le caractère NUL (`U+0000`) peut être rejeté par le lecteur CSV avant les contrôles de champs ; il provoque alors une erreur d’import explicite, jamais un avis de conformité. Les tests de caractères de contrôle sur les 98 variables utilisent `U+0001`, compatible avec toutes les versions annoncées.
