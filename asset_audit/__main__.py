@@ -14,12 +14,14 @@ from .engine import ConfigurationError, InputError, audit, load_config, sha256_f
 
 
 def csv_safe(value):
+    """Protège l'ouverture dans Excel sans modifier la valeur source dans JSON."""
     text = '' if value is None else str(value)
     # Préserve l'original dans JSON / source ; neutralise les formules à l'ouverture Excel.
     return "'" + text if text.lstrip().startswith(('=', '+', '-', '@', '\t', '\r')) else text
 
 
 def write_html(result, path):
+    """Construit un rapport autonome à partir de la synthèse de l'audit."""
     esc=lambda v:html.escape(str(v))
     body=[]
     for item in result['variables']:
@@ -41,6 +43,7 @@ def write_html(result, path):
 
 
 def main(argv=None):
+    """Lit les options, lance l'audit puis écrit un dossier de rapports complet."""
     parser=argparse.ArgumentParser(description='Audit local des 98 variables INVREF. Aucun envoi de données.')
     parser.add_argument('input',type=Path)
     parser.add_argument('--config',type=Path,help='Référentiel JSON ; défaut : les 98 variables du catalogue')
@@ -52,6 +55,7 @@ def main(argv=None):
     args=parser.parse_args(argv)
     temp=None
     try:
+        # Le référentiel et le fichier sont vérifiés avant de créer les résultats.
         cfg=load_config(args.config)
         if not args.input.is_file():raise InputError('Fichier source introuvable')
         if args.output.exists():raise InputError('Dossier de sortie déjà existant ; choisir un nouveau chemin')
@@ -60,6 +64,8 @@ def main(argv=None):
         import hashlib
         cfg_hash=hashlib.sha256(cfg_bytes).hexdigest()
         args.output.parent.mkdir(parents=True,exist_ok=True)
+        # Écriture dans un dossier temporaire : le rapport final n'apparaît
+        # qu'une fois tous ses fichiers générés et la source revérifiée.
         temp=Path(tempfile.mkdtemp(prefix='.audit-',dir=args.output.parent))
         columns=['source_line','field','rule_id','issue_type','severity','raw_value','normalized_value','threshold','message','review_status']
         with (temp/'anomalies.csv').open('w',encoding='utf-8-sig',newline='') as stream, (temp/'donnees_normalisees.csv').open('w',encoding='utf-8-sig',newline='') as normalized_stream:
@@ -68,9 +74,15 @@ def main(argv=None):
             normalized_writer.writeheader()
             def emit(item):writer.writerow({k:csv_safe(v) for k,v in item.items()})
             def emit_normalized(item):normalized_writer.writerow({k:csv_safe(v) for k,v in item.items()})
+            # Les callbacks écrivent les résultats au fil de la lecture, ce qui
+            # évite de garder toutes les anomalies en mémoire.
             result=audit(args.input,cfg,emit,sheet=args.sheet,header_row=args.header_row,delimiter=args.delimiter,encoding=args.encoding,emit_normalized=emit_normalized)
         if sha256_file(args.input)!=input_hash:raise InputError('Source modifiée pendant le contrôle ; relancer')
+        # Les empreintes permettent de rattacher le rapport exact au fichier
+        # contrôlé et au référentiel utilisé.
         result.update({'tool_version':__version__,'config_version':cfg['version'],'config_sha256':cfg_hash,'input_name':args.input.name,'input_sha256':input_hash,'executed_at':datetime.now(timezone.utc).isoformat(),'import_parameters':{'sheet':args.sheet,'header_row':args.header_row,'delimiter':args.delimiter,'encoding':args.encoding},'scope':'Exhaustivité et conformité unitaires ; aucune cohérence intercolonnes.'})
+        # La synthèse JSON contient le résultat global ; parametres.json garde
+        # une copie exacte des règles, utile pour reproduire l'exécution.
         (temp/'synthese.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
         (temp/'parametres.json').write_text(json.dumps(cfg,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
         with (temp/'variables.csv').open('w',encoding='utf-8-sig',newline='') as stream:
@@ -83,6 +95,8 @@ def main(argv=None):
             for rule in result['rule_review']:
                 w.writerow([csv_safe(v) for v in [rule['variable_id'],rule['variable'],rule['id'],rule['origin'],rule['source_clause'],rule['execution_status'],rule['tested_values'],', '.join(rule.get('checks',[])),', '.join(rule.get('requirement_ids',[])),rule['note']]])
         write_html(result,temp/'rapport.html')
+        # Le renommage publie le dossier d'un seul coup. En cas d'erreur, le
+        # bloc finally supprime le dossier temporaire incomplet.
         os.rename(temp,args.output);temp=None
         print(f"{result['status']} : {result['rows']} lignes, {result['present_variables']}/98 champs, {result['anomalies']} alertes, {result['pending_requirements']} exigences source à préciser. Rapport : {args.output / 'rapport.html'}")
         return 1 if result['anomalies'] else 2 if result['status']!='CONFORME_CONTROLES_EXECUTES' else 0
