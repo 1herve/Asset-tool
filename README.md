@@ -43,7 +43,7 @@ Les paramètres `--delimiter`, `--encoding`, `--header-row` et `--sheet` sont ex
 
 ## Contrôles présents
 
-- Présence des 98 colonnes ; noms dupliqués, colonnes inconnues, en-têtes vides, largeur irrégulière des lignes ; ordre optionnel.
+- Présence des 98 colonnes ; noms dupliqués, colonnes inconnues, en-têtes vides ; ordre optionnel.
 - Pour **chaque variable** : nombre renseigné, nombre vide, taux de vide, format, espaces parasites, caractères de contrôle, valeurs distinctes et statut de contrôle.
 - Champs explicitement obligatoires : date de valorisation, code valeur, devise de gestion, devise portefeuille ; libellé de l’indicateur dérivé incorporé, conformément à la directive de la variable 74.
 - Nombres finis, séparateurs et groupements vérifiés, montants signés et taux négatifs acceptés tant qu’aucune borne métier ne les interdit.
