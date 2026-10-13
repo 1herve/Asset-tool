@@ -170,6 +170,7 @@ def load_config(path: Path | None = None) -> dict:
 # 8. VALIDATION DE LA CONFIGURATION
 # ============================================================
 def validate_config(cfg: dict) -> None:
+    """Refuse d'exécuter un paramétrage incomplet ou contradictoire."""
     fields = cfg['fields']
     if len(fields) != cfg['expected_field_count'] or len(fields) != 98:
         raise ConfigurationError('Le périmètre INVREF doit contenir exactement 98 variables.')
@@ -360,6 +361,8 @@ def audit(path: Path, cfg: dict, emit: Callable[[dict], None], *, sheet: str | N
           header_row: int=1, delimiter: str=';', encoding: str='utf-8-sig',
           emit_normalized: Callable[[dict], None] | None=None) -> dict:
     """Émet les anomalies progressivement ; pas de conservation de toutes les lignes."""
+    # On valide le paramétrage avant de lire les données : une règle mal définie
+    # doit arrêter l'audit, pas produire un résultat qui semble conforme.
     validate_config(cfg)
     fields = cfg['fields']; settings=cfg['settings']
     field_by_name = {f['name']:f for f in fields}
@@ -372,6 +375,8 @@ def audit(path: Path, cfg: dict, emit: Callable[[dict], None], *, sheet: str | N
     def alert(rule: str, message: str, line: int | None=None, f: dict | None=None,
               raw: Any=None, normalized: Any=None, threshold: Any=None, severity: str | None=None):
         nonlocal schema_errors, review_alerts
+        # Cette fonction alimente à la fois la synthèse et le rapport détaillé.
+        # Une alerte « À analyser » reste distincte d'une anomalie de conformité.
         counts[rule]+=1
         is_review=severity=='À analyser'
         if is_review:review_alerts+=1
@@ -387,6 +392,8 @@ def audit(path: Path, cfg: dict, emit: Callable[[dict], None], *, sheet: str | N
               'threshold':raw_text(threshold),'message':message,'review_status':'à analyser'})
     iterator=iter(input_rows(path,sheet,header_row,delimiter,encoding))
     _, headers, header_line, epoch=next(iterator)
+    # Les noms de colonnes sont nettoyés pour la comparaison. Les doublons et
+    # les colonnes inconnues sont signalés avant tout contrôle de cellule.
     normalized_headers=[]
     for i,h in enumerate(headers):
         text=raw_text(h)
@@ -414,6 +421,8 @@ def audit(path: Path, cfg: dict, emit: Callable[[dict], None], *, sheet: str | N
         if len(values)!=len(headers):
             alert('ROW_WIDTH','Nombre de cellules différent du nombre de colonnes.',line,raw=len(values),threshold=len(headers))
         formulas=set(metadata or [])
+        # Une ligne normalisée est construite champ par champ. La valeur brute
+        # reste dans l'alerte pour permettre de retrouver la cellule d'origine.
         normalized_row={'source_line':line}
         for f in fields:
             name=f['name'];s=stats[name]
@@ -437,6 +446,8 @@ def audit(path: Path, cfg: dict, emit: Callable[[dict], None], *, sheet: str | N
                 if f['kind'] in ('identifier','indicator','text') and re.search(r' {2,}|[\u00a0\u202f]',norm):
                     alert('TEXT_SPACING','Espaces répétés ou insécables à examiner.',line,f,v,norm,severity='À analyser')
                 try:
+                    # Les conversions strictes précèdent les règles de domaine,
+                    # de format, de bornes, de signe et d'unicité.
                     if idx in formulas:
                         raise ValueError('formule Excel non exécutée dans une extraction')
                     if f['kind']=='number': norm=number(v,settings)
@@ -491,6 +502,8 @@ def audit(path: Path, cfg: dict, emit: Callable[[dict], None], *, sheet: str | N
                         seen.add(key)
                     normalized_row[name]=raw_text(norm)
                 except (ValueError, InvalidOperation, OverflowError) as exc:
+                    # Une valeur illisible est conservée comme vide dans la vue
+                    # normalisée, avec une alerte qui explique la raison.
                     s['type_invalid']+=1
                     normalized_row[name]=''
                     alert('FORMAT',str(exc),line,f,v)
@@ -498,6 +511,8 @@ def audit(path: Path, cfg: dict, emit: Callable[[dict], None], *, sheet: str | N
             if sum(s['counts'][k] for k in format_codes)>format_before:s['format_invalid']+=1
         if emit_normalized is not None:emit_normalized(normalized_row)
     if rows==0:alert('EMPTY_INPUT','Aucune ligne de données ; aucun résultat de conformité validable.')
+    # Le statut métier tient compte des règles encore à préciser. Le statut
+    # technique décrit seulement les contrôles effectivement exécutés.
     summary=[]
     for f in fields:
         s=stats[f['name']]
@@ -524,7 +539,8 @@ def audit(path: Path, cfg: dict, emit: Callable[[dict], None], *, sheet: str | N
             state='DIFFERE' if rule['status']=='DIFFERE' else 'A_PRECISER' if remaining else 'NON_EXECUTE' if not target['present'] or not rows or not tested else 'REVUE_EXECUTEE' if rule['status']=='REVUE' else 'CONTROLE_EXECUTE'
             if state in ('CONTROLE_EXECUTE','REVUE_EXECUTEE') and any(k not in target['rules'] for k in checks):
                 state='PARTIEL_PAR_CONFIGURATION' if any(k in target['rules'] for k in checks) else 'DESACTIVE_PAR_CONFIGURATION'
-            # Une dérogation clôt une attente sans prétendre que le contrôle a été exécuté.
+            # Une dérogation approuvée clôt l'exigence, sans prétendre que le
+            # contrôle correspondant a été exécuté sur les données.
             requirement_ids=set(rule.get('requirement_ids',[]))
             if requirement_ids and all(any(p.get('id')==rid and p.get('waiver') for p in f['pending']) for rid in requirement_ids):
                 state='NON_APPLICABLE_JUSTIFIE'
@@ -543,6 +559,7 @@ def audit(path: Path, cfg: dict, emit: Callable[[dict], None], *, sheet: str | N
 
 
 def sha256_file(path: Path) -> str:
+    """Calcule l'empreinte du fichier par blocs pour limiter l'usage mémoire."""
     digest=hashlib.sha256()
     with path.open('rb') as stream:
         for block in iter(lambda:stream.read(1024*1024),b''):digest.update(block)
